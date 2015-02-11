@@ -1,0 +1,7 @@
+" for pythoncomplete.vim
+"
+syntax on
+filetype plugin on
+
+" vim-node
+set runtimepath^=~/.vim/bundle/node

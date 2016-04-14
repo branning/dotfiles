@@ -3,7 +3,7 @@
 pushd home
 for file in $(find *); do
   echo $file
-  ln -fs dotfiles/home/$file ~/.$file
+  ln -fs $PWD/$file ~/.$file
 done
 popd
 

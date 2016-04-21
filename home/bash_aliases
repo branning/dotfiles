@@ -1,3 +1,7 @@
 alias dl='docker ps -l -q'
+
+# `ls` is colorized, on both osx and linux
 ls --color=al > /dev/null 2>&1 && alias ls='ls -F --color=al' || alias ls='ls -G'
 
+# `cls` to clear the screen
+alias cls='printf "\033c"

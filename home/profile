@@ -1,0 +1,6 @@
+# set less options, fancy stuff like mouse wheel scrolling
+# http://superuser.com/a/455213
+export LESS=-asrRix8
+
+# add conda to path
+export PATH="$PATH:$HOME/miniconda/bin"

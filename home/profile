@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -48,4 +49,7 @@ then
     PATH="$PATH:$HOME/miniconda2/bin"
 fi
 
+# set less options, fancy stuff like mouse wheel scrolling
+# http://superuser.com/a/455213
+export LESS=-asrRix8
 

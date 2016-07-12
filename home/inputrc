@@ -1,0 +1,4 @@
+# bind Ctrl-Home and Ctrl-End to ends of history
+# http://stackoverflow.com/a/20864838
+"\C-^[OH": beginning-of-history            # Ctrl-Home
+"\C-^[OF": beginning-of-history            # Ctrl-End

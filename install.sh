@@ -5,20 +5,22 @@
 # For example, dotfiles/home/profile --> ~/.profile
 #              dotfiles/home/tmux    --> ~/.tmux
 
+# for dry run, set d=echo
+#d=echo
+
 here=$(cd $(dirname $BASH_SOURCE); pwd)
-
-pushd $here/home || { echo "missing $here/home!" >&2; exit 1; }
-
 echo "Linking files from $here/home into ~"
-for file in $(find . -maxdepth 1 -type f); do
-  ! [ -f $file ] && { echo "$f is not a file!" >&2; exit 1; }
-  $t ln -fs $PWD/$file ~/.$file
-done
 
-popd
+pushd $here/home >/dev/null || { echo "missing $here/home!" >&2; exit 1; }
+for file in $(find * -type f); do
+  #[ "$d" ] && echo file=$file
+  #! [ -f $file ] && { echo "$f is not a file!" >&2; exit 1; }
+  $d ln -v -fs $PWD/$file ~/.$file
+done
+popd >/dev/null
 
 # Not everything here is a dotfile, some are scripts and goodies
 #
 # install tmux bash completion
-$t echo -e "source $(echo $PWD)/scripts/bash_completion_tmux.sh" >> ~/.bash_profile
+$d echo -e "source $(echo $PWD)/scripts/bash_completion_tmux.sh" >> ~/.bash_profile
 

@@ -1,0 +1,18 @@
+{
+	"auto_indent": true,
+	"detect_indentation": false,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"indent_subsequent_lines": true,
+	"indent_to_bracket": true,
+	"rulers":
+	[
+		80
+	],
+	"shift_tab_unindent": true,
+	"translate_tabs_to_spaces": true,
+	"trim_trailing_white_space_on_save": true,
+	"wrap_width": 80
+}

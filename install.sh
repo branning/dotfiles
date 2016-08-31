@@ -17,6 +17,44 @@ error()
 quiet()
 { $@ >/dev/null; }
 
+git_clean()
+{
+    if quiet git diff --exit-code && quiet git diff --cached --exit-code
+    then return 0
+    else return 1
+    fi
+}
+
+reponame()
+{   # from a git url, extract default repo directory name
+    url=$1
+    dir=`basename $url`
+    # delete '.git' from the right end.
+    # see http://tldp.org/LDP/abs/html/parameter-substitution.html#PCTPATREF
+    dir=${dir%%.git}
+    echo $dir
+}
+
+clone_update()
+{
+  # clone a git repo, or if already cloned, pull
+  giturl=$1
+  repo=`reponame $giturl`
+  git clone ${giturl} 2>/dev/null && echo "cloned" ||
+  { printf "already checked out, "
+    quiet pushd $repo
+    if git_clean
+    then
+        printf "it's clean, pulling: "
+        git pull
+    else
+        echo "it's dirty! Changed files:"
+        git status --porcelain
+    fi
+    quiet popd
+  }
+}
+
 install_dotfiles()
 {
   quiet pushd $here/home
@@ -66,13 +104,13 @@ install_vim_plugins()
   # so we install pathogen, and some plugins, there
   mkdir -p $HOME/.vim/bundle
   quiet pushd $HOME/.vim/bundle
-  git clone git://github.com/tpope/vim-pathogen.git
+  clone_update git://github.com/tpope/vim-pathogen.git
 
   # neovim support for pathogen
   ln -s ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim /usr/share/nvim/runtime/pathogen.vim
 
   # vim-fugitive requires a config step
-  git clone git://github.com/tpope/vim-fugitive.git
+  clone_update git://github.com/tpope/vim-fugitive.git
   vim -u NONE -c "helptags vim-fugitive/doc" -c q
 
   quiet popd

@@ -7,6 +7,8 @@
 
 #set -o xtrace
 
+here=$(cd $(dirname $BASH_SOURCE); pwd)
+
 error()
 { echo "$@" >&2
   exit 1
@@ -17,7 +19,6 @@ quiet()
 
 install_dotfiles()
 {
-  here=$(cd $(dirname $BASH_SOURCE); pwd)
   quiet pushd $here/home
 
   echo "Linking files from $here/home into $HOME"
@@ -32,7 +33,8 @@ install_goodies()
   # Not everything here is a dotfile, some are scripts and goodies
   #
   # install tmux bash completion
-  $d echo -e "source $(echo $PWD)/scripts/bash_completion_tmux.sh" >> ~/.bash_profile
+  sed -i '/bash_completion_tmux.sh/d' ~/.bash_profile
+  echo -e "source $here/scripts/bash_completion_tmux.sh" >> ~/.bash_profile
 }
 
 install_sublimetext_settings()

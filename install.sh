@@ -15,7 +15,7 @@ error()
 }
 
 quiet()
-{ $@ >/dev/null; }
+{ "$@" >/dev/null 2>&1; }
 
 git_clean()
 {
@@ -40,13 +40,11 @@ clone_update()
   # clone a git repo, or if already cloned, pull
   giturl=$1
   repo=`reponame $giturl`
-  git clone ${giturl} 2>/dev/null && echo "cloned" ||
-  { printf "already checked out, "
-    quiet pushd $repo
+  quiet git clone ${giturl} || \
+  { quiet pushd $repo
     if git_clean
     then
-        printf "it's clean, pulling: "
-        git pull
+        quiet git pull
     else
         echo "it's dirty! Changed files:"
         git status --porcelain
@@ -61,6 +59,7 @@ install_dotfiles()
 
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -type f); do
+    printf "  "
     ln -v -fs $PWD/$file ~/.$file
   done
   quiet popd
@@ -99,6 +98,8 @@ install_sublimetext_settings()
 
 install_vim_plugins()
 {
+  echo "Installing vim plugins"
+
   # the ~/.vim file has a line to autoload pathogen, which will autoload all plugins
   # that we install to ~/.vim/bundle
   # so we install pathogen, and some plugins, there
@@ -122,4 +123,5 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_goodies
   install_sublimetext_settings
   install_vim_plugins
+
 fi

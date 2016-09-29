@@ -22,7 +22,8 @@ install_path()
 # add conda to path
 if [ -d ${miniconda_home} ]
 then
-    PATH="\$PATH:${miniconda_home}/bin"
+    export PATH="\$PATH:${miniconda_home}/bin"
+    conda config --set changeps1 yes
 fi
 EOF
   fi
@@ -41,5 +42,5 @@ then
   fi
 fi
 
-conda config --set always_yes yes --set changeps1 no
+conda config --set always_yes yes
 conda update conda

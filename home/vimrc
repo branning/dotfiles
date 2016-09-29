@@ -5,3 +5,8 @@ filetype plugin on
 
 " vim-node
 set runtimepath^=~/.vim/bundle/node
+
+" turn pathogen on for autoloading plugins in ~/.vim/bundle
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+

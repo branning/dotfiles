@@ -1,3 +1,4 @@
-all: 
-	bash linkdotfiles.sh
+.PHONY: install
 
+install:
+	bash install.sh

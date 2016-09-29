@@ -41,13 +41,15 @@ then
     fi
 fi
 
-# add conda to path
-if [ -d ~/miniconda2 ]
-then
-    PATH="$PATH:$HOME/miniconda2/bin"
-fi
-
 # set less options, fancy stuff like mouse wheel scrolling
 # http://superuser.com/a/455213
 export LESS=-asrRix8
 
+
+# add conda to path
+if [ -d $HOME/miniconda ]
+then
+    PATH="$PATH:/Users/pbranning/miniconda/bin"
+    # set to 'no' if you don't like command prompt frobbing
+    conda config --set changeps1 yes
+fi

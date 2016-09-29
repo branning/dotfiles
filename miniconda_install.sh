@@ -20,7 +20,7 @@ install_path()
     cat <<EOF >>$HOME/.profile
 
 # add conda to path
-if [ -d \$${miniconda_home} ]
+if [ -d ${miniconda_home} ]
 then
     PATH="\$PATH:${miniconda_home}/bin"
 fi

@@ -69,9 +69,20 @@ install_goodies()
 {
   # Not everything here is a dotfile, some are scripts and goodies
   #
-  # install tmux bash completion
-  sed -i '/bash_completion_tmux.sh/d' ~/.bash_profile
-  echo -e "source $here/scripts/bash_completion_tmux.sh" >> ~/.bash_profile
+  [ -f ~/.bash_profile ] && sed -i '/bash_completion_tmux.sh/d' ~/.bash_profile
+  tmux_comment='install tmux bash completion'
+  if ! grep -q "$tmux_comment" ~/.profile
+  then
+    echo 'Installing tmux Bash completion'
+    cat <<TMUX >> ~/.profile
+
+# ${tmux_comment}
+if [ -n "\$BASH_VERSION" ]
+then
+    source $here/scripts/bash_completion_tmux.sh
+fi
+TMUX
+  fi
 }
 
 install_sublimetext_settings()
@@ -123,5 +134,4 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_goodies
   install_sublimetext_settings
   install_vim_plugins
-
 fi

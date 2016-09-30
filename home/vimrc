@@ -1,3 +1,12 @@
+
+" Big red bar at column 81
+set textwidth=80
+set colorcolumn=+1
+
+" Line numbers
+set number
+set numberwidth=5
+
 " for pythoncomplete.vim
 "
 syntax on

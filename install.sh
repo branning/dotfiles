@@ -56,11 +56,13 @@ clone_update()
 install_dotfiles()
 {
   quiet pushd $here/home
+  local symbolic # whether to make symlinmks. systemd hates them!
 
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -type f); do
-    printf "  "
-    ln -v -fs $PWD/$file ~/.$file
+    #printf "  "
+    [[ $file =~ 'systemd' ]] && symbolic='' || symbolic='-s'
+    cp -afv ${symbolic} $PWD/$file ~/.$file
   done
   quiet popd
 }

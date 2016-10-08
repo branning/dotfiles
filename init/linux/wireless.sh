@@ -48,11 +48,17 @@ cat <<EOF >${wlan}
 `dmesg | egrep wl[osp][0-9]+ | perl -pe '$_ = "# $_"' | xargs -I% echo %`
 
 # the wireless network interface
-auto ${wlan}
+# if auto is set, the interface is required at boot
+#auto ${wlan}
+allow-hotplug ${wlan}
 iface ${wlan} inet dhcp
     wpa-ssid ${access_point}
     wpa-psk ${psk}
 
 EOF
 
+# install the interfaces file and restart networking
 sudo cp -f ${wlan} /etc/network/interfaces.d/${wlan}
+printf "Restarting ${wlan} ... "
+sudo ifdown ${wlan} && sudo ifup ${wlan}
+echo "ok!"

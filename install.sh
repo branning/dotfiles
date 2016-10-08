@@ -61,7 +61,8 @@ install_dotfiles()
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -type f); do
     #printf "  "
-    [[ $file =~ 'systemd' ]] && symbolic='' || symbolic='-s'
+    echo $file
+    [[ -d `dirname $file` ]] && symbolic='-s' || symbolic=''
     cp -afv ${symbolic} $PWD/$file ~/.$file
   done
   quiet popd

@@ -1,6 +1,7 @@
 [Unit]
 Description=Rescuetime
 Documentation=
+After=graphical.target
 
 [Service]
 Type=simple

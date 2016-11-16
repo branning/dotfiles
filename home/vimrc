@@ -7,6 +7,9 @@ set colorcolumn=+1
 set number
 set numberwidth=5
 
+" Enable modelines
+set modeline
+
 " for pythoncomplete.vim
 "
 syntax on

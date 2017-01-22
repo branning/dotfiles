@@ -44,3 +44,10 @@ fi
 # set less options, fancy stuff like mouse wheel scrolling
 # http://superuser.com/a/455213
 export LESS=-asrRix8
+
+# add conda to path
+if [ -d $HOME/miniconda ]
+then
+    export PATH="$PATH:$HOME/miniconda/bin"
+    conda config --set changeps1 yes
+fi

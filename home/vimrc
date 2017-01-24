@@ -22,3 +22,6 @@ set runtimepath^=~/.vim/bundle/node
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 
+" vim-markdown
+let g:vim_markdown_folding_disabled = 1
+

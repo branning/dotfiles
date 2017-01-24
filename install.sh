@@ -121,6 +121,9 @@ install_vim_plugins()
   quiet pushd $HOME/.vim/bundle
   clone_update git://github.com/tpope/vim-pathogen.git
 
+  # vim-markdown
+  clone_update git://github.com/plasticboy/vim-markdown.git
+
   # neovim support for pathogen
   if command -v nvim
   then

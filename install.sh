@@ -105,7 +105,7 @@ install_sublimetext_settings()
   esac
 
   echo "SublimeText User dir: $user_dir"
-  [ -d "$user_dir" ] || error "Sublime Text user preferences dir missing!"
+  mkdir -p "$user_dir"
   cp sublime/sublime-settings "$user_settings"
   cp sublime/sublime-keymap "$user_keymap"
 }
@@ -122,7 +122,12 @@ install_vim_plugins()
   clone_update git://github.com/tpope/vim-pathogen.git
 
   # neovim support for pathogen
-  ln -s ~/.vim/bundle/vim-pathogen/autoload/pathogen.vim /usr/share/nvim/runtime/pathogen.vim
+  if command -v nvim
+  then
+    pathogen_autoload=~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
+    mkdir -p $(basename $pathogen_autoload)
+    ln -s "$pathogen_autoload" /usr/share/nvim/runtime/pathogen.vim
+  fi
 
   # vim-fugitive requires a config step
   clone_update git://github.com/tpope/vim-fugitive.git

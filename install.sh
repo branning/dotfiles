@@ -93,17 +93,43 @@ install_sublimetext_settings()
   # install sublimetext user settings
   case $OSTYPE in
     darwin*)
+      subl_dir='/Applications/Sublime Text.app/Contents/SharedSupport/bin'
       user_dir=$HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
       user_settings=$user_dir/Preferences.sublime-settings
       user_keymap=$user_dir/Default\ \(OSX\).sublime-keymap
       ;;
     linux*)
+      bin_dir=/usr/bin
       user_dir=$HOME/.config/sublime-text-3/Packages/User
       user_settings=$user_dir/Preferences.sublime-settings
       user_keymap=$user_dir/Default\ \(Linux\).sublime-keymap
       ;;
   esac
 
+  if ! [ -x "${subl_dir}/subl" ]
+  then
+    echo "Sublimetext is not installed, skipping configuration"
+    return 0
+  fi
+
+  if ! quiet command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
+  then
+    echo "Adding Sublime Text bin dir to PATH: ${subl_dir}"
+    export PATH="$PATH:${bin_path}"
+    cat  <<EOF >>$HOME/.profile
+
+# add sublime text bin to path
+if [ -d '${subl_dir}' ]
+then
+    export PATH="\$PATH:${subl_dir}"
+fi
+EOF
+
+    # now import the path
+    source ~/.profile
+  fi
+
+  subl -v # print Sublime Text version
   echo "SublimeText User dir: $user_dir"
   mkdir -p "$user_dir"
   cp sublime/sublime-settings "$user_settings"

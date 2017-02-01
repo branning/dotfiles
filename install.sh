@@ -104,12 +104,22 @@ install_sublimetext_settings()
       user_settings=$user_dir/Preferences.sublime-settings
       user_keymap=$user_dir/Default\ \(Linux\).sublime-keymap
       ;;
+    *)
+      echo >&2 "Don't know how to install sublimetext on ${OSTYPE}!"
+      return 1
   esac
 
   if ! [ -x "${subl_dir}/subl" ]
   then
-    echo "Sublimetext is not installed, skipping configuration"
-    return 0
+    case $OSTYPE in
+      linux*)    
+        echo "Installing sublimetext version ${subl_version}"
+        ./sublimetext_install.sh $subl_version
+        ;;
+      *)
+        echo "Sublimetext is not installed, skipping configuration"
+        return 0
+    esac
   fi
 
   if ! quiet command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
@@ -169,6 +179,7 @@ install_vim_plugins()
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_dotfiles
   install_goodies
+  subl_version=3126
   install_sublimetext_settings
   install_vim_plugins
 fi

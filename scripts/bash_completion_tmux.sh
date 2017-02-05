@@ -5,12 +5,12 @@
 # Usage: Put "source bash_completion_tmux.sh" into your .bashrc
 _tmux()
 {
-	local cur prev words cword;
-	_init_completion || return;
-	if [[ $cword -eq 1 ]]; then
-		COMPREPLY=($( compgen -W "$(tmux list-commands | cut -d' ' -f1)" -- "$cur" ));
-		return 0
-	fi
+  local cur prev words cword;
+  _init_completion || return;
+  if [[ $cword -eq 1 ]]; then
+    COMPREPLY=($(compgen -W "$(tmux list-commands | cut -d' ' -f1)" -- "$cur"));
+    return 0
+  fi
 }
 complete -F _tmux tmux
 

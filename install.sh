@@ -35,13 +35,25 @@ reponame()
     echo $dir
 }
 
+clone_deep()
+{
+  local giturl
+  giturl="$1"
+  git clone "$giturl" || return 1
+  quiet pushd `reponame $giturl`
+  git submodule update --init --recursive
+  quiet popd
+}
+
 clone_update()
 {
   # clone a git repo, or if already cloned, pull
-  giturl=$1
+  giturl="$1"
   repo=`reponame $giturl`
-  quiet git clone ${giturl} || \
-  { quiet pushd $repo
+  echo "  cloning ${giturl}"
+  if ! quiet clone_deep "$giturl"
+  then
+    quiet pushd $repo
     if git_clean
     then
         quiet git pull
@@ -50,7 +62,7 @@ clone_update()
         git status --porcelain
     fi
     quiet popd
-  }
+  fi
 }
 
 install_dotfiles()
@@ -60,7 +72,6 @@ install_dotfiles()
 
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -type f); do
-    echo $file
     [[ -d `dirname $file` ]] && symbolic='-s' || symbolic=''
     ln -v -f "$symbolic" $PWD/$file ~/.$file
   done
@@ -111,7 +122,7 @@ install_sublimetext_settings()
   if ! [ -x "${subl_dir}/subl" ]
   then
     case $OSTYPE in
-      linux*)    
+      linux*)
         echo "Installing sublimetext version ${subl_version}"
         ./sublimetext_install.sh $subl_version
         ;;
@@ -147,17 +158,15 @@ EOF
 
 install_vim_plugins()
 {
-  echo "Installing vim plugins"
-
   # the ~/.vim file has a line to autoload pathogen, which will autoload all plugins
   # that we install to ~/.vim/bundle
   # so we install pathogen, and some plugins, there
   mkdir -p $HOME/.vim/bundle
   quiet pushd $HOME/.vim/bundle
-  clone_update git://github.com/tpope/vim-pathogen.git
+  echo "Installing vim plugins to `pwd`"
 
-  # vim-markdown
-  clone_update git://github.com/plasticboy/vim-markdown.git
+  # vim-pathogen
+  clone_update git://github.com/tpope/vim-pathogen.git
 
   # neovim support for pathogen
   if command -v nvim
@@ -170,6 +179,19 @@ install_vim_plugins()
   # vim-fugitive requires a config step
   clone_update git://github.com/tpope/vim-fugitive.git
   vim -u NONE -c "helptags vim-fugitive/doc" -c q
+
+  # vim-markdown
+  clone_update git://github.com/plasticboy/vim-markdown.git
+
+  # YouCompleteMe requires an install step, which takes a long time
+  clone_update git://github.com/Valloric/YouCompleteMe.git
+  if ! [ -f YouCompleteMe/third_party/ycmd/ycm_core.so ]
+  then
+    echo "Installing YouCompleteMe"
+    quiet pushd YouCompleteMe
+    ./install.py --clang-completer >/dev/null
+    quiet popd
+  fi
 
   quiet popd
 }

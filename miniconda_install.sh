@@ -7,7 +7,20 @@ miniconda_home=$HOME/miniconda
 
 install_latest()
 {
-  wget http://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda3.sh
+  echo "Installing latest Miniconda to ${miniconda_home}"
+  ext='sh'
+  case $OSTYPE in
+    darwin*)    platform='MacOSX';;
+    linux*)     platform='Linux';;
+    win*)       platform='Windows'
+                ext='exe';;
+    *)          echo >&2 "Unknown platform ${OSTYPE}, cannot install miniconda"
+                exit 1;;
+  esac
+
+  url="https://repo.continuum.io/miniconda/Miniconda3-latest-${platform}-x86_64.${ext}"
+  wget --show-progress -nv "$url" -O miniconda3.sh
+  rm -rf ${miniconda_home}
   bash miniconda3.sh -b -p ${miniconda_home}
   rm miniconda3.sh
 }
@@ -45,4 +58,4 @@ fi
 # this config step seems to be done already in `install_path`
 #conda config --set always_yes yes
 
-conda update conda
+conda update conda -y -q

@@ -14,13 +14,13 @@ install_latest()
 
 install_path()
 {
-  # install miniconda to PATH
+  # install code ~/.profile to add miniconda to PATH
   if ! grep -q miniconda $HOME/.profile
   then
     cat <<EOF >>$HOME/.profile
 
 # add conda to path
-if [ -d ${miniconda_home} ]
+if [ -d $HOME/miniconda ] && ! onpath $HOME/miniconda
 then
     export PATH="\$PATH:${miniconda_home}/bin"
     conda config --set changeps1 yes

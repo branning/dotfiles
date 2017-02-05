@@ -60,10 +60,9 @@ install_dotfiles()
 
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -type f); do
-    #printf "  "
     echo $file
     [[ -d `dirname $file` ]] && symbolic='-s' || symbolic=''
-    cp -afv ${symbolic} $PWD/$file ~/.$file
+    ln -v -f "$symbolic" $PWD/$file ~/.$file
   done
   quiet popd
 }
@@ -72,7 +71,7 @@ install_goodies()
 {
   # Not everything here is a dotfile, some are scripts and goodies
   #
-  [ -f ~/.bash_profile ] && sed -i '/bash_completion_tmux.sh/d' ~/.bash_profile
+  [ -f ~/.bash_profile ] && sed -ie '/bash_completion_tmux.sh/d' ~/.bash_profile
   tmux_comment='install tmux bash completion'
   if ! grep -q "$tmux_comment" ~/.profile
   then

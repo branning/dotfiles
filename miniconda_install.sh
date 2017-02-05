@@ -30,17 +30,19 @@ EOF
   source $HOME/.profile
 }
 
+# install latest version of miniconda, if none found
+if ! [ -x "$miniconda_home/bin/conda" ]
+then
+  install_latest
+fi
+
 # if conda is not on the path, put it there
-# if it's still not on the path, install it
 if ! command -v conda
 then
   install_path
-  if ! command -v conda
-  then
-    install_latest
-    source $HOME/.profile
-  fi
 fi
 
-conda config --set always_yes yes
+# this config step seems to be done already in `install_path`
+#conda config --set always_yes yes
+
 conda update conda

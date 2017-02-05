@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# setup and enable Rescuetime service
+# Install Sublimetext text editor
 
 set -o errexit
 

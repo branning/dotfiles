@@ -1,0 +1,1 @@
+SUBSYSTEM=="block", ENV{ID_VENDOR}=="Generic-", ENV{ID_MODEL}=="SD_MMC_MS_MSPRO", ATTR{authorized}="0"

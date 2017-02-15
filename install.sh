@@ -196,6 +196,21 @@ install_vim_plugins()
   quiet popd
 }
 
+disable_unwanted_devices()
+{
+  case "$OSTYPE" in
+    linux*)
+      for rule in init/linux/udev/rules.d/*
+      do
+        sudo ln -s $(readlink -f "$rule") /etc/udev/rules.d/
+      done
+      # must reload the udev rules after installing new ones
+      sudo udevadm control --reload-rules
+      # tip: `udevadm monitor` can help debug rules
+      ;;
+  esac
+}
+
 # install everything, if we are not being sourced
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_dotfiles

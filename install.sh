@@ -92,9 +92,25 @@ install_goodies()
 # ${tmux_comment}
 if [ -n "\$BASH_VERSION" ]
 then
-    source $here/scripts/bash_completion_tmux.sh
+  source $here/scripts/bash_completion_tmux.sh
 fi
 TMUX
+  fi
+
+  git_comment='install git bash completion'
+  if ! grep -q "$git_comment" ~/.profile
+  then
+    echo 'Installing git Bash completion'
+    completion_url='https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash'
+    curl -q "$completion_url" -o "$here/scripts/git-completion.bash"
+    cat <<GIT >> ~/.profile
+
+# ${git_comment}
+if [ -n "\$BASH_VERSION" ]
+then
+  source $here/scripts/git-completion.bash
+fi
+GIT
   fi
 }
 

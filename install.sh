@@ -140,7 +140,7 @@ install_sublimetext_settings()
     case $OSTYPE in
       linux*)
         echo "Installing sublimetext version ${subl_version}"
-        ./sublimetext_install.sh $subl_version
+        ./scripts/sublimetext_install.sh $subl_version
         ;;
       *)
         echo "Sublimetext is not installed, skipping configuration"

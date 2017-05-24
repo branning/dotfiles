@@ -102,7 +102,7 @@ TMUX
   then
     echo 'Installing git Bash completion'
     completion_url='https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash'
-    curl -q "$completion_url" -o "$here/scripts/git-completion.bash"
+    curl -s "$completion_url" -o "$here/scripts/git-completion.bash"
     cat <<GIT >> ~/.profile
 
 # ${git_comment}
@@ -212,6 +212,14 @@ install_vim_plugins()
   quiet popd
 }
 
+install_nvm()
+{
+  if ! command -v nvm
+  then
+    ./scripts/nvm_install.sh
+  fi
+}
+
 disable_unwanted_devices()
 {
   case "$OSTYPE" in
@@ -234,4 +242,5 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   subl_version=3126
   install_sublimetext_settings
   install_vim_plugins
+  install_nvm
 fi

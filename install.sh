@@ -212,11 +212,15 @@ install_vim_plugins()
   quiet popd
 }
 
-install_nvm()
+install_node()
 {
   if ! command -v nvm
   then
     ./scripts/nvm_install.sh
+  fi
+  if ! command -v yarn
+  then
+    ./scripts/yarn_install.sh
   fi
 }
 
@@ -242,5 +246,5 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   subl_version=3126
   install_sublimetext_settings
   install_vim_plugins
-  install_nvm
+  install_node
 fi

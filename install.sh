@@ -167,8 +167,8 @@ EOF
   subl -v # print Sublime Text version
   echo "SublimeText User dir: $user_dir"
   mkdir -p "$user_dir"
-  quiet pushd settings
-  for settings in *.settings
+  quiet pushd sublime
+  for settings in ./*.sublime-settings
   do
     cp "$settings" "${user_dir}/${settings}"
   done

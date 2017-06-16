@@ -116,18 +116,17 @@ GIT
 
 install_sublimetext_settings()
 {
+  local settings
   # install sublimetext user settings
   case $OSTYPE in
     darwin*)
       subl_dir='/Applications/Sublime Text.app/Contents/SharedSupport/bin'
       user_dir=$HOME/Library/Application\ Support/Sublime\ Text\ 3/Packages/User
-      user_settings=$user_dir/Preferences.sublime-settings
       user_keymap=$user_dir/Default\ \(OSX\).sublime-keymap
       ;;
     linux*)
       bin_dir=/usr/bin
       user_dir=$HOME/.config/sublime-text-3/Packages/User
-      user_settings=$user_dir/Preferences.sublime-settings
       user_keymap=$user_dir/Default\ \(Linux\).sublime-keymap
       ;;
     *)
@@ -168,8 +167,13 @@ EOF
   subl -v # print Sublime Text version
   echo "SublimeText User dir: $user_dir"
   mkdir -p "$user_dir"
-  cp sublime/sublime-settings "$user_settings"
-  cp sublime/sublime-keymap "$user_keymap"
+  quiet pushd settings
+  for settings in *.settings
+  do
+    cp "$settings" "${user_dir}/${settings}"
+  done
+  cp sublime-keymap "$user_keymap"
+  quiet popd
 }
 
 install_vim_plugins()

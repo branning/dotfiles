@@ -228,6 +228,22 @@ install_node()
   fi
 }
 
+install_go()
+{
+  if ! command -v go
+  then
+    ./scripts/go_install.sh
+  fi
+}
+
+install_tools()
+{
+  if ! command -v cfssl
+  then
+    ./scripts/cfssl_install.sh
+  fi
+}
+
 disable_unwanted_devices()
 {
   case "$OSTYPE" in
@@ -251,4 +267,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_sublimetext_settings
   install_vim_plugins
   install_node
+  install_go
+  install_tools
 fi

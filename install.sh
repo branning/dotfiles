@@ -114,7 +114,7 @@ GIT
   fi
 }
 
-install_sublimetext_settings()
+install_sublimetext()
 {
   local settings
   # install sublimetext user settings
@@ -264,7 +264,16 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_dotfiles
   install_goodies
   subl_version=3126
-  install_sublimetext_settings
+  # are we in a graphical session? if so, install sublimetext
+  case "$OSTYPE" in
+    linux*)
+      if ! [ -z ${XDG_CURRENT_DESKTOP+x} ]
+      then
+        install_sublimetext
+      else
+        echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext"
+      fi
+  esac
   install_vim_plugins
   install_node
   install_go

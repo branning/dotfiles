@@ -14,6 +14,22 @@ wget -q "$url_targz"
 sudo tar -C /usr/local -xzf $(basename "$url_targz")
 rm $(basename "$url_targz")
 
+gopath_comment='set up Go workspace'
+if ! grep -q "$gopath_comment" ~/.profile
+then
+  info 'Adding GOPATH env var'
+  cat <<GOPATH >> ~/.profile
+
+# ${gopath_comment}
+if ! [ -d \$HOME/go ]
+then
+  mkdir -p \$HOME/go
+fi
+export GOPATH=\$HOME/go
+GOPATH
+
+fi
+
 go_comment='install golang path'
 if ! grep -q "$go_comment" ~/.profile
 then
@@ -23,7 +39,7 @@ then
 # ${go_comment}
 if [ -d /usr/local/go/bin ]
 then
-  export PATH="\$PATH:/usr/local/go/bin"
+  export PATH="\$PATH:/usr/local/go/bin:\$GOPATH/bin"
 fi
 GO
 

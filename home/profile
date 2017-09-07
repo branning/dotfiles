@@ -26,16 +26,6 @@ then
     PATH="$HOME/bin:$PATH"
 fi
 
-# add Go to the path
-GOBIN='/usr/local/go/bin'
-if [ -d "$GOBIN" ] && ! onpath "$GOBIN"
-then
-    PATH="$PATH:/usr/local/go/bin"
-fi
-
-# set up Go workspace
-export GOPATH=$HOME/work
-
 if [ -n "$BASH_VERSION" ]
 then
     # add rbenv to path

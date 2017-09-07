@@ -238,9 +238,15 @@ install_go()
 
 install_tools()
 {
-  if ! command -v cfssl
+  if ! quiet command -v cfssl
   then
     ./scripts/cfssl_install.sh
+  fi
+
+  if ! quiet command -v cmake
+  then
+    echo "installing cmake"
+    quiet ./scripts/pkg_install.sh cmake
   fi
 }
 
@@ -274,8 +280,9 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext"
       fi
   esac
-  install_vim_plugins
   install_node
   install_go
+  # some tools are required to make and install YouCompleteMe vim plugin
   install_tools
+  install_vim_plugins
 fi

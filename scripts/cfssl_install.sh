@@ -4,8 +4,11 @@
 #
 # run it like `cfssl certinfo -domain beta.lilt.com`
 
-go get -u github.com/cloudflare/cfssl/cmd/cfssl
-if command -v cfssl
+quiet()
+{ "$@" >/dev/null 2>&1; }
+
+go get -u github.com/cloudflare/cfssl/cmd/...
+if quiet command -v cfssl
 then
-  "cfssl install: success"
+  echo "cfssl install: success"
 fi

@@ -26,5 +26,7 @@ wget -q "$url"
 tar -xzvf $(basename "$url")
 rm $(basename "$url")
 ./google-cloud-sdk/install.sh -q --rc-path ~/.profile
+source ~/.profile
+gcloud components install kubectl -q
 exec -l $SHELL
 

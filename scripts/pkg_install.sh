@@ -41,7 +41,7 @@ do
       fi
       ;;
     cygwin*|msys*|mingw32*)
-      scoop install yarn
+      scoop install "$pkg"
       ;;
   esac
 

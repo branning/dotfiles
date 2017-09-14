@@ -151,12 +151,12 @@ install_sublimetext()
       return 1
   esac
 
-  if ! quiet command -v subl
+  if ! command -v subl
   then
     case $OSTYPE in
       linux*)
-        echo "Installing sublimetext version ${subl_version}"
-        ./scripts/sublimetext_install.sh $subl_version
+        echo "Installing sublimetext from apt repo"
+        ./scripts/sublimetext_install.sh
         ;;
       *)
         echo "Sublimetext is not installed, skipping configuration"
@@ -313,7 +313,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_deps
   install_dotfiles
   install_goodies
-  subl_version=3126
   # are we in a graphical session? if so, install sublimetext
   case "$OSTYPE" in
     linux*)

@@ -6,17 +6,15 @@ set -o errexit
 
 here=$(dirname $(readlink -f $0 2>/dev/null || $0))
 
-install_sublimetext()
+debian_install_sublimetext()
 {
-  local version deb url
-  version=$1
-  url="https://download.sublimetext.com/sublime-text_build-${version}_amd64.deb"
-  deb="sublimetext.${version}.deb"
-  trap "rm -f "$deb""  INT TERM EXIT
-  wget -nv -O $deb $url
-  sudo dpkg -i $deb
-  # reset traps
-  trap - INT TERM EXIT
+  gpg_url='https://download.sublimetext.com/sublimehq-pub.gpg'
+  wget -qO - "$gpg_url" | sudo apt-key add -
+  channel='stable' # or 'dev'
+  echo "deb https://download.sublimetext.com/ apt/${channel}/" \
+    | sudo tee /etc/apt/sources.list.d/sublime-text.list
+  sudo apt update
+  sudo apt install sublime-text
 }
 
 install_package_control()
@@ -42,7 +40,6 @@ install_packages()
 # if we are being sourced, nothing below here will run
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
-version=${1-3126}
-install_sublimetext $version
+debian_install_sublimetext
 install_packages
 install_package_control

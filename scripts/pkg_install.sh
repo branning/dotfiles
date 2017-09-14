@@ -2,6 +2,8 @@
 #
 # install using platform-specific package managers
 
+quiet(){ "$@" >/dev/null 2>&1; }
+
 error()
 { echo "$@" >&2
   exit 1
@@ -16,15 +18,23 @@ for pkg in $@
 do
   case $OSTYPE in
     darwin*)
-      brew install "$pkg"
+      if ! quiet brew list | grep -q "$pkg"
+      then
+        brew install "$pkg"
+      fi
       ;;
     linux*)
       if [ -f /etc/debian_version ]
       then
-        apt install "$pkg" -y
+        if ! quiet dpkg-query -s "$pkg"
+        then
+          echo "installing dependency: ${pkg}"
+          quiet apt install "$pkg" -y
+        fi
       elif [ -f /etc/redhat-release ]
       then
-        dnf install "$pkg"
+        echo "installing dependency: ${pkg}"
+        quiet dnf install "$pkg"
       else
         error "can't install packages on Linux flavor: (contents of /etc/os-release)"
         cat /etc/os-release

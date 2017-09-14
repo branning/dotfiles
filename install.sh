@@ -15,7 +15,23 @@ error()
 }
 
 quiet()
-{ "$@" >/dev/null 2>&1; }
+{
+  "$@" >/dev/null 2>&1
+  return $?
+}
+
+info() {
+  echo "`basename $0`: $*"
+}
+
+install_deps()
+{
+  for pkg in git curl 
+  do
+    info "installing dependency: ${pkg}"
+    $here/scripts/pkg_install.sh "$pkg"
+  done
+}
 
 git_clean()
 {
@@ -51,7 +67,7 @@ clone_update()
   giturl="$1"
   repo=`reponame $giturl`
   echo "  cloning ${giturl}"
-  if ! quiet clone_deep "$giturl"
+  if quiet ! clone_deep "$giturl"
   then
     quiet pushd $repo
     if git_clean
@@ -102,6 +118,7 @@ TMUX
   then
     echo 'Installing git Bash completion'
     completion_url='https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash'
+    $here/scripts/pkg_install.sh curl
     curl -s "$completion_url" -o "$here/scripts/git-completion.bash"
     cat <<GIT >> ~/.profile
 
@@ -134,7 +151,7 @@ install_sublimetext()
       return 1
   esac
 
-  if ! [ -x "${subl_dir}/subl" ]
+  if quiet ! command -v subl
   then
     case $OSTYPE in
       linux*)
@@ -147,7 +164,7 @@ install_sublimetext()
     esac
   fi
 
-  if ! quiet command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
+  if quiet ! command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
   then
     echo "Adding Sublime Text bin dir to PATH: ${subl_dir}"
     export PATH="$PATH:${bin_path}"
@@ -176,8 +193,25 @@ EOF
   quiet popd
 }
 
-install_vim_plugins()
+install_vim()
 {
+  # vim itself
+  if quiet ! command -v vim
+  then
+    case $OSTYPE in
+      darwin*)
+        error "Install macvim according to: https://github.com/Valloric/YouCompleteMe#mac-os-x"
+        ;;
+      *)
+        $here/scripts/pkg_install.sh vim
+        ;;
+    esac
+  fi
+
+  # tools needed
+  $here/scripts/pkg_install.sh git cmake
+  $here/scripts/g++_install.sh
+
   # the ~/.vim file has a line to autoload pathogen, which will autoload all plugins
   # that we install to ~/.vim/bundle
   # so we install pathogen, and some plugins, there
@@ -205,11 +239,14 @@ install_vim_plugins()
 
   # YouCompleteMe requires an install step, which takes a long time
   clone_update git://github.com/Valloric/YouCompleteMe.git
+  CLANG='--clang-completer'
+  NODE='--tern-completer'
+  GOLANG='--gocode-completer'
   if ! [ -f YouCompleteMe/third_party/ycmd/ycm_core.so ]
   then
     echo "Installing YouCompleteMe"
     quiet pushd YouCompleteMe
-    ./install.py --clang-completer >/dev/null
+    ./install.py $CLANG $NODE $GOLANG >/dev/null
     quiet popd
   fi
 
@@ -218,35 +255,41 @@ install_vim_plugins()
 
 install_node()
 {
-  if ! command -v nvm
+  if quiet ! command -v nvm
   then
-    ./scripts/nvm_install.sh
+    info "installing nvm"
+    quiet $here/scripts/nvm_install.sh
   fi
-  if ! command -v yarn
+  if quiet ! command -v yarn
   then
-    ./scripts/yarn_install.sh
+    info "installing yarn"
+    quiet $here/scripts/yarn_install.sh
+  fi
+
+  source ~/.profile
+  if quiet ! command -v node
+  then
+    if ! nvm use --lts
+    then
+      nvm install --lts
+    fi
   fi
 }
 
 install_go()
 {
-  if ! command -v go
+  if quiet ! command -v go
   then
-    ./scripts/go_install.sh
+    info "installing golang"
+    $here/scripts/go_install.sh
   fi
 }
 
 install_tools()
 {
-  if ! quiet command -v cfssl
+  if quiet ! command -v cfssl
   then
-    ./scripts/cfssl_install.sh
-  fi
-
-  if ! quiet command -v cmake
-  then
-    echo "installing cmake"
-    quiet ./scripts/pkg_install.sh cmake
+    $here/scripts/cfssl_install.sh
   fi
 }
 
@@ -267,6 +310,7 @@ disable_unwanted_devices()
 
 # install everything, if we are not being sourced
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  install_deps
   install_dotfiles
   install_goodies
   subl_version=3126
@@ -282,7 +326,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   esac
   install_node
   install_go
-  # some tools are required to make and install YouCompleteMe vim plugin
+  install_vim
   install_tools
-  install_vim_plugins
 fi

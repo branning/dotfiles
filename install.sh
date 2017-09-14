@@ -67,7 +67,7 @@ clone_update()
   giturl="$1"
   repo=`reponame $giturl`
   echo "  cloning ${giturl}"
-  if quiet ! clone_deep "$giturl"
+  if ! quiet clone_deep "$giturl"
   then
     quiet pushd $repo
     if git_clean
@@ -151,7 +151,7 @@ install_sublimetext()
       return 1
   esac
 
-  if quiet ! command -v subl
+  if ! quiet command -v subl
   then
     case $OSTYPE in
       linux*)
@@ -164,7 +164,7 @@ install_sublimetext()
     esac
   fi
 
-  if quiet ! command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
+  if ! command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
   then
     echo "Adding Sublime Text bin dir to PATH: ${subl_dir}"
     export PATH="$PATH:${bin_path}"
@@ -196,7 +196,7 @@ EOF
 install_vim()
 {
   # vim itself
-  if quiet ! command -v vim
+  if ! command -v vim
   then
     case $OSTYPE in
       darwin*)
@@ -255,19 +255,19 @@ install_vim()
 
 install_node()
 {
-  if quiet ! command -v nvm
+  if ! command -v nvm
   then
     info "installing nvm"
     quiet $here/scripts/nvm_install.sh
   fi
-  if quiet ! command -v yarn
+  if ! command -v yarn
   then
     info "installing yarn"
     quiet $here/scripts/yarn_install.sh
   fi
 
   source ~/.profile
-  if quiet ! command -v node
+  if ! command -v node
   then
     if ! nvm use --lts
     then
@@ -278,7 +278,7 @@ install_node()
 
 install_go()
 {
-  if quiet ! command -v go
+  if ! command -v go
   then
     info "installing golang"
     $here/scripts/go_install.sh
@@ -287,7 +287,7 @@ install_go()
 
 install_tools()
 {
-  if quiet ! command -v cfssl
+  if ! command -v cfssl
   then
     $here/scripts/cfssl_install.sh
   fi

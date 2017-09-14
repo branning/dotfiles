@@ -26,6 +26,16 @@ case $OSTYPE in
         | sudo debconf-set-selections
       apt install oracle-java8-installer -y
       apt install oracle-java8-set-default -y
+      java_comment='add JAVA_HOME environment variable'
+      if ! grep -q "$java_comment" ~/.profile
+      then
+        echo 'Installing JAVA_HOME to ~/.profile'
+        cat <<JAVA >> ~/.profile
+
+# ${java_comment}
+export JAVA_HOME='/usr/lib/jvm/java-8-oracle'
+JAVA
+      fi
     else
       error "don't know how to install Oracle JDK on Linux flavor: (contents of /etc/os-release)"
       cat /etc/os-release

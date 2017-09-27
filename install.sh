@@ -336,5 +336,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_go
   install_vim
   install_python
+  source ~/.profile
   install_tools
 fi

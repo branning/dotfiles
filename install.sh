@@ -285,12 +285,21 @@ install_go()
   fi
 }
 
+install_python()
+{
+  # install conda for python environments
+  $here/scripts/miniconda_install.sh
+}
+
 install_tools()
 {
   if ! command -v cfssl
   then
     $here/scripts/cfssl_install.sh
   fi
+
+  # mycli is a mysql command line interface with smart tab completion
+  pip install mycli
 }
 
 disable_unwanted_devices()
@@ -326,5 +335,6 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_node
   install_go
   install_vim
+  install_python
   install_tools
 fi

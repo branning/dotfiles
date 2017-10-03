@@ -1,7 +1,12 @@
 {
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
 	"installed_packages":
 	[
 		"CMake",
+		"Dockerfile Syntax Highlighting",
 		"Markdown Extended",
 		"Monokai Extended",
 		"Package Control",
@@ -11,4 +16,3 @@
 		"Swift"
 	]
 }
-

@@ -2,6 +2,7 @@
 	"auto_indent": true,
 	"color_scheme": "Packages/Monokai Extended/Monokai Extended.tmTheme",
 	"detect_indentation": false,
+	"font_size": 14,
 	"ignored_packages":
 	[
 		"Vintage"

@@ -22,7 +22,7 @@ if ! command -v minikube >/dev/null 2>&1
 then
   $here/minikube_install.sh
 fi
-if ! kubectl config current-context
+if ! kubectl config use-context minikube
 then
   minikube start
 fi

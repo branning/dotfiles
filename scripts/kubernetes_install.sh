@@ -22,7 +22,9 @@ if ! command -v minikube >/dev/null 2>&1
 then
   $here/minikube_install.sh
 fi
-if ! kubectl config use-context minikube
+kubectl config use-context minikube
+
+if ! [[ $(minikube status --format "{{.MinikubeStatus}}") == Running ]]
 then
   minikube start
 fi
@@ -31,6 +33,7 @@ if ! command -v helm >/dev/null 2>&1
 then
   $here/helm_install.sh
 fi
+
 if ! helm version >/dev/null 2>&1
 then
   helm init

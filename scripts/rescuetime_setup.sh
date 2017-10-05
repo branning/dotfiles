@@ -21,7 +21,7 @@ install_deps()
 install_rescuetime()
 {
   deb=`mktemp rescuetime.XXXXX.deb`
-  latest_url=https://www.rescuetime.com/installers/rescuetime_current_amd64.deb
+  latest_url=https://www.rescuetime.com/installers/rescuetime_beta_amd64.deb
   wget -O $deb $latest_url
   install_deps
   dpkg -i $deb

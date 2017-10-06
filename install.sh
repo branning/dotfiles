@@ -9,8 +9,8 @@
 
 here=$(cd $(dirname $BASH_SOURCE); pwd)
 
-error()
-{ echo "$@" >&2
+error() {
+  echo "`basename $0` error: $*" >&2
   exit 1
 }
 

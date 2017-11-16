@@ -10,7 +10,7 @@ info() {
   echo "gcloud install: $*"
 }
 
-version='170.0.0'
+version='179.0.0'
 
 case $OSTYPE in
   darwin*)

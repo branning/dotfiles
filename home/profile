@@ -41,3 +41,8 @@ fi
 # http://superuser.com/a/455213
 export LESS=-asrRix8
 
+# enable CTRL+S forward searching of Bash history with readline
+# Most terminals override Ctrl+S to suspend execution until Ctrl+Q is entered.
+# This is known as XON/XOFF flow control. Disable XON/XOFF.
+stty -ixon
+

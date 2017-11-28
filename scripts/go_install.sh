@@ -2,16 +2,40 @@
 #
 # binary package installation instructions from https://golang.org/doc/install
 
+set -o errexit
+
 version='1.9'
 url_targz="https://storage.googleapis.com/golang/go${version}.linux-amd64.tar.gz"
+
+SILENT=${SILENT:=1}
+((!SILENT)) && set -o xtrace
 
 info() {
   echo "golang install: $*"
 }
 
+become_root() {
+  if ! [ $EUID -eq 0 ]
+  then
+    if [[ $(source /etc/os-release; echo $ID) = ubuntu ]]
+    then
+      PRESERVE_ENV='-E'
+    fi
+    exec sudo "$PRESERVE_ENV" /bin/bash "$0" "$@"
+  fi
+}
+
+
+# if we are being sourced, nothing below here will run
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
+
+become_root
+
 info "downloading ${url_targz}"
-wget -q "$url_targz"
-sudo tar -C /usr/local -xzf $(basename "$url_targz")
+((SILENT)) && quiet='-q' || quiet='--show-progress'
+wget "$quiet" "$url_targz"
+
+tar -C /usr/local -xzf $(basename "$url_targz")
 rm $(basename "$url_targz")
 
 gopath_comment='set up Go workspace'
@@ -45,3 +69,4 @@ GO
 
 fi
 
+info 'Golang installation complete! Try `source ~/.profile` and `go version`'

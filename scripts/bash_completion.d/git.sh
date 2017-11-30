@@ -10,7 +10,7 @@ then
   echo 'Installing git Bash completion'
   completion_url='https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash'
   $here/../pkg_install.sh curl
-  curl -s "$completion_url" -o "$here/scripts/git-completion.bash"
+  curl -s "$completion_url" -o "$here/../git-completion.bash"
   cat <<GIT >> ~/.profile
 
 # ${git_comment}

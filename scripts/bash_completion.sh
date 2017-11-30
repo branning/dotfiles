@@ -10,7 +10,20 @@
 set -o errexit
 #set -o xtrace
 
-here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+become_root() {
+  if ! [ $EUID -eq 0 ]
+  then
+    [[ $(source /etc/os-release; echo $ID) = ubuntu ]] && PRESERVE_ENV='-E'
+    exec sudo "$PRESERVE_ENV" /bin/bash "$0" "$@"
+  fi
+}
+
+# if we are being sourced, nothing below here will run
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
+
+#become_root
+
+here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
 workdir=$(mktemp -d)
 trap "cd $here; rm -rf $workdir" EXIT
 
@@ -19,8 +32,9 @@ mkdir bash-completion
 cd bash-completion/
 
 # setup sparse checkout of only the `bash_completion` file from master branch
-git init
-git remote add origin git://git.debian.org/git/bash-completion/bash-completion.git
+debian_repo='git://git.debian.org/git/bash-completion/bash-completion.git'
+git init >/dev/null 2>&1
+git remote add origin "$debian_repo"
 git config core.sparseCheckout true
 cat <<'EOF' > .git/info/sparse-checkout
 bash_completion
@@ -28,6 +42,7 @@ completions/*
 helpers/*
 EOF
 
-git pull origin master
+echo "`basename $0`: cloning repo from ${debian_repo}"
+
+git pull origin master >/dev/null 2>&1
 sudo cp -rf * /usr/share/bash-completion/
-exit 0

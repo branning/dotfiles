@@ -94,44 +94,16 @@ install_dotfiles()
   quiet popd
 }
 
-install_goodies()
+install_bash_completion()
 {
-  # Not everything here is a dotfile, some are scripts and goodies
-
-  # Install bash-completion with fewer bugs
+  # Install base bash-completion with fewer bugs
   $here/scripts/bash_completion.sh
 
-  [ -f ~/.bash_profile ] && sed -ie '/bash_completion_tmux.sh/d' ~/.bash_profile
-  tmux_comment='install tmux bash completion'
-  if ! grep -q "$tmux_comment" ~/.profile
-  then
-    echo 'Installing tmux Bash completion'
-    cat <<TMUX >> ~/.profile
-
-# ${tmux_comment}
-if [ -n "\$BASH_VERSION" ]
-then
-  source $here/scripts/bash_completion_tmux.sh
-fi
-TMUX
-  fi
-
-  git_comment='install git bash completion'
-  if ! grep -q "$git_comment" ~/.profile
-  then
-    echo 'Installing git Bash completion'
-    completion_url='https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash'
-    $here/scripts/pkg_install.sh curl
-    curl -s "$completion_url" -o "$here/scripts/git-completion.bash"
-    cat <<GIT >> ~/.profile
-
-# ${git_comment}
-if [ -n "\$BASH_VERSION" ]
-then
-  source $here/scripts/git-completion.bash
-fi
-GIT
-  fi
+  # Install other Bash completions we have collected
+  for completion_script in $here/scripts/bash_completion.d/*.sh
+  do
+    "$completion_script"
+  done
 }
 
 install_sublimetext()
@@ -324,7 +296,7 @@ disable_unwanted_devices()
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_deps
   install_dotfiles
-  install_goodies
+  install_bash_completion
   # are we in a graphical session? if so, install sublimetext
   case "$OSTYPE" in
     linux*)

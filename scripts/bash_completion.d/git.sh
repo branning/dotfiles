@@ -2,12 +2,14 @@
 #
 # Install git Bash completion
 
+here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+
 git_comment='install git bash completion'
 if ! grep -q "$git_comment" ~/.profile
 then
   echo 'Installing git Bash completion'
   completion_url='https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash'
-  $here/scripts/pkg_install.sh curl
+  $here/../pkg_install.sh curl
   curl -s "$completion_url" -o "$here/scripts/git-completion.bash"
   cat <<GIT >> ~/.profile
 

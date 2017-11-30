@@ -97,7 +97,10 @@ install_dotfiles()
 install_goodies()
 {
   # Not everything here is a dotfile, some are scripts and goodies
-  #
+
+  # Install bash-completion with fewer bugs
+  $here/scripts/bash_completion.sh
+
   [ -f ~/.bash_profile ] && sed -ie '/bash_completion_tmux.sh/d' ~/.bash_profile
   tmux_comment='install tmux bash completion'
   if ! grep -q "$tmux_comment" ~/.profile

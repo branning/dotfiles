@@ -106,6 +106,12 @@ install_bash_completion()
   done
 }
 
+install_aliases()
+{
+  # Curtis Allen's kctx trick
+  $here/scripts/kctx.sh
+}
+
 install_sublimetext()
 {
   local settings
@@ -297,6 +303,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_deps
   install_dotfiles
   install_bash_completion
+  install_aliases
   # are we in a graphical session? if so, install sublimetext
   case "$OSTYPE" in
     linux*)

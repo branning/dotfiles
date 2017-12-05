@@ -28,5 +28,7 @@ rm $(basename "$url")
 ./google-cloud-sdk/install.sh -q --rc-path ~/.profile
 source ~/.profile
 gcloud components install kubectl -q
+
+# replaces the current shell! exit stage left ... !
 exec -l $SHELL
 

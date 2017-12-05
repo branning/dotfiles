@@ -5,3 +5,6 @@ ls --color=al > /dev/null 2>&1 && alias ls='ls -F --color=al' || alias ls='ls -G
 
 # `cls` to clear the screen
 alias cls='printf "\033c"'
+
+# Curtis Allen's kctx trick: https://asciinema.org/a/dltaxEgFpmTzHp4ihhEtZLAKX
+alias kctx='kubectl config use-context $(kubectl config get-contexts -o=name | fzf)'

@@ -218,6 +218,9 @@ install_vim()
   # vim-markdown
   clone_update git://github.com/plasticboy/vim-markdown.git
 
+  # vim-gitgutter, show git diff in gutter (left-most column)
+  git clone git://github.com/airblade/vim-gitgutter.git
+
   # YouCompleteMe requires an install step, which takes a long time
   clone_update git://github.com/Valloric/YouCompleteMe.git
   CLANG='--clang-completer'

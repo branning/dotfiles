@@ -2,3 +2,7 @@
 # http://stackoverflow.com/a/20864838
 "\C-^[OH": beginning-of-history            # Ctrl-Home
 "\C-^[OF": beginning-of-history            # Ctrl-End
+
+# colorized tab completion outputs
+# https://unix.stackexchange.com/a/133866/148498
+set colored-stats on

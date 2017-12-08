@@ -78,6 +78,12 @@ install_lscolors()
   $here/scripts/lscolors_install.sh
 }
 
+install_prompt()
+{
+  # an informative git prompt for Bash
+  $here/scripts/gitprompt_install.sh
+}
+
 install_sublimetext()
 {
   local settings
@@ -274,6 +280,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_bash_completion
   install_aliases
   install_lscolors
+  install_prompt
   # are we in a graphical session? if so, install sublimetext and rescuetime
   case "$OSTYPE" in
     linux*)

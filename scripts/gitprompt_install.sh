@@ -4,8 +4,7 @@
 # from https://github.com/olivierverdier/zsh-git-prompt
 # port of informative git prompt for zsh: https://github.com/olivierverdier/zsh-git-prompt
 
-set -o xtrace
-set +o errexit
+#set -o xtrace
 
 if ! [ -d $HOME/.bash-git-prompt ]
 then
@@ -21,6 +20,7 @@ then
 if [ -f \$HOME/.bash-git-prompt/gitprompt.sh ]
 then
   GIT_PROMPT_ONLY_IN_REPO=1
+  GIT_PROMPT_THEME='Single_line_Solarized'
   source \$HOME/.bash-git-prompt/gitprompt.sh
 fi
 EOF

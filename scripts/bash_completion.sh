@@ -32,8 +32,11 @@ cd "$workdir"
 
 # setup sparse checkout of only the `bash_completion` file from master branch
 debian_repo='git://git.debian.org/git/bash-completion/bash-completion.git'
-git init >/dev/null 2>&1
-git remote add origin "$debian_repo"
+if ! git status >/dev/null 2>&1
+then
+  git init >/dev/null 2>&1
+  git remote add origin "$debian_repo"
+fi
 git config core.sparseCheckout true
 cat <<'EOF' > .git/info/sparse-checkout
 bash_completion

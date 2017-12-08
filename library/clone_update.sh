@@ -23,6 +23,14 @@ clone_deep()
   quiet popd
 }
 
+git_clean()
+{
+    if quiet git diff --exit-code && quiet git diff --cached --exit-code
+    then return 0
+    else return 1
+    fi
+}
+
 clone_update()
 {
   # clone a git repo, or if already cloned, pull

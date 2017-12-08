@@ -15,7 +15,7 @@ then
 # ${lscolors_comment}
 if [ -f \$HOME/.dircolors ]
 then
-  eval \$(dircolors -b \$HOME/.dircolors)'
+  eval \$(dircolors -b \$HOME/.dircolors)
 fi
 EOF
 fi

@@ -24,12 +24,11 @@ if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 #become_root
 
 here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
-workdir=$(mktemp -d)
-trap "cd $here; rm -rf $workdir" EXIT
+trap "cd $here" EXIT
 
+workdir=$HOME/src/bash-completion
+mkdir -p "$workdir"
 cd "$workdir"
-mkdir bash-completion
-cd bash-completion/
 
 # setup sparse checkout of only the `bash_completion` file from master branch
 debian_repo='git://git.debian.org/git/bash-completion/bash-completion.git'

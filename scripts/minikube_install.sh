@@ -9,7 +9,7 @@ error() {
   exit 1
 }
 
-release='v0.22.2'
+release='v0.24.1'
 
 case $OSTYPE in
   linux*)  platform='linux';;

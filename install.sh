@@ -112,6 +112,13 @@ install_aliases()
   $here/scripts/kctx.sh
 }
 
+install_lscolors()
+{
+  # LS_COLORS is used by readline when `set colored-stats on` is set
+  # grab about 300 different colors for different filetypes
+  $here/scripts/lscolors_install.sh
+}
+
 install_sublimetext()
 {
   local settings
@@ -307,6 +314,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_dotfiles
   install_bash_completion
   install_aliases
+  install_lscolors
   # are we in a graphical session? if so, install sublimetext
   case "$OSTYPE" in
     linux*)

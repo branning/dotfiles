@@ -4,12 +4,13 @@
 # from https://github.com/olivierverdier/zsh-git-prompt
 # port of informative git prompt for zsh: https://github.com/olivierverdier/zsh-git-prompt
 
-set -o errexit
+set -o xtrace
+set +o errexit
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
-source "$here/../library/clone_update.sh"
-
-clone_update https://github.com/magicmonty/bash-git-prompt.git $HOME/.bash-git-prompt --depth=1
+if ! [ -d $HOME/.bash-git-prompt ]
+then
+  git clone https://github.com/magicmonty/bash-git-prompt.git $HOME/.bash-git-prompt --depth=1
+fi
 
 gitcolors_comment='Install an informative git prompt for Bash'
 if ! grep -q "$gitcolors_comment" ~/.bashrc

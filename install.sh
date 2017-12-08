@@ -89,6 +89,7 @@ install_dotfiles()
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -type f); do
     [[ -d `dirname $file` ]] && symbolic='-s' || symbolic=''
+    mkdir -p $(dirname "~/.file")
     ln -v -f "$symbolic" $PWD/$file ~/.$file
   done
   quiet popd
@@ -315,14 +316,15 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_bash_completion
   install_aliases
   install_lscolors
-  # are we in a graphical session? if so, install sublimetext
+  # are we in a graphical session? if so, install sublimetext and rescuetime
   case "$OSTYPE" in
     linux*)
       if ! [ -z ${XDG_CURRENT_DESKTOP+x} ]
       then
         install_sublimetext
+        $here/scripts/rescuetime_setup.sh
       else
-        echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext"
+        echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext and rescuetime"
       fi
   esac
   install_node

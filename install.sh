@@ -7,11 +7,19 @@
 
 #set -o xtrace
 
-here=$(cd $(dirname $BASH_SOURCE); pwd)
-
 # ye olde toole shoppe
-source "$here/library/quiet.sh"
-source "$here/library/clone_update.sh"
+library='
+  quiet
+  clone_update
+  '
+for tool in $library
+do
+  here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+  source "${here}/library/${tool}.sh"
+done
+
+# once more, with feeling
+here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
 
 error() {
   echo "`basename $0` error: $*" >&2

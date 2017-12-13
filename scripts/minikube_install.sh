@@ -54,4 +54,6 @@ case $platform in
   darwin) error 'not sure how to set `vm-driver` on macos yet';;
   *)      error "impossible, did you add platform=${platform} above?";;
 esac
-minikube config set
+
+# turn off this error prompting thingy
+minikube config set WantReportErrorPrompt false

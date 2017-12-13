@@ -13,6 +13,8 @@ error() {
   exit 1
 }
 
+command -v kubectl &>/dev/null || error "kubectl required to install minikube"
+
 release='v0.24.1'
 
 case $OSTYPE in
@@ -48,6 +50,7 @@ case $platform in
         fi
       fi
     fi
+    ;;
   darwin) error 'not sure how to set `vm-driver` on macos yet';;
   *)      error "impossible, did you add platform=${platform} above?";;
 esac

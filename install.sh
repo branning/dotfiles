@@ -9,6 +9,7 @@
 
 # ye olde toole shoppe
 library='
+  info
   quiet
   clone_update
   '
@@ -24,10 +25,6 @@ here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
 error() {
   echo "`basename $0` error: $*" >&2
   exit 1
-}
-
-info() {
-  echo "`basename $0`: $*"
 }
 
 install_deps()

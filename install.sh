@@ -29,7 +29,7 @@ error() {
 
 install_deps()
 {
-  for pkg in git curl 
+  for pkg in git curl jq
   do
     info "installing dependency: ${pkg}"
     $here/scripts/pkg_install.sh "$pkg"

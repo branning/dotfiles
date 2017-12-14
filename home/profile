@@ -47,4 +47,6 @@ export LESS=-asrRix8
 stty -ixon
 
 # attach tmux session, if one exists
-command -v tmux >/dev/null 2>&1 && tmux list-sessions && tmux attach
+command -v tmux >/dev/null 2>&1 &&
+  tmux list-sessions >/dev/null 2>&1 &&
+  tmux attach

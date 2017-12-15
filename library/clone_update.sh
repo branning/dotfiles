@@ -19,7 +19,11 @@ clone_deep()
   giturl="$1"
   git clone "$giturl" || return 1
   quiet pushd `reponame $giturl`
-  git submodule update --init --recursive
+  if command -v nproc >/dev/null 2>&1
+  then
+    parallel="--jobs $(nproc)"
+  fi
+  git submodule update --init --recursive "$parallel"
   quiet popd
 }
 

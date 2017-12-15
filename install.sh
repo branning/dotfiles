@@ -253,6 +253,9 @@ install_tools()
 
   # mycli is a mysql command line interface with smart tab completion
   pip install mycli
+
+  # git lfs (large file support) is used to store references to huge files
+  $here/scripts/gitlfs_install.sh
 }
 
 disable_unwanted_devices()

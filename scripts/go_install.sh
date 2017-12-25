@@ -4,8 +4,15 @@
 
 set -o errexit
 
-version='1.9'
-url_targz="https://storage.googleapis.com/golang/go${version}.linux-amd64.tar.gz"
+version='1.9.2'
+case $OSTYPE in
+  darwin*) platform='darwin';;
+  linux*)  platform='linux';;
+  *)
+    echo >&2 "cannot install Golang for OS $OSTYPE}. See https://golang.org/doc/install"
+    ;;
+esac
+url_targz="https://storage.googleapis.com/golang/go${version}.${platform}-amd64.tar.gz"
 
 SILENT=${SILENT:=1}
 ((!SILENT)) && set -o xtrace
@@ -17,11 +24,11 @@ info() {
 become_root() {
   if ! [ $EUID -eq 0 ]
   then
-    if [[ $(source /etc/os-release; echo $ID) = ubuntu ]]
+    if [ -f /etc/os-release ] && [[ $(source /etc/os-release; echo $ID) = ubuntu ]]
     then
       PRESERVE_ENV='-E'
     fi
-    exec sudo "$PRESERVE_ENV" /bin/bash "$0" "$@"
+    exec sudo $PRESERVE_ENV /bin/bash "$0" "$@"
   fi
 }
 

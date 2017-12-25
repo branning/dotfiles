@@ -21,6 +21,8 @@ check_brew() {
 # if we are being sourced, nothing below here will run
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
+VERBOSE=${VERBOSE:-0}
+
 case $OSTYPE in
   darwin*)
     check_brew;;
@@ -36,9 +38,11 @@ for pkg in $@
 do
   case $OSTYPE in
     darwin*)
-      if ! quiet brew list | grep -q "$pkg"
+      if ! brew list 2>/dev/null | grep -q "$pkg"
       then
         brew install "$pkg"
+      elif ((VERBOSE))
+      then echo "ok $pkg"
       fi
       ;;
     linux*)

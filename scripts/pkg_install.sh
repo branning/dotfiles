@@ -2,6 +2,8 @@
 #
 # install using platform-specific package managers
 
+here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+
 quiet(){ "$@" >/dev/null 2>&1; }
 
 error()
@@ -9,10 +11,26 @@ error()
   exit 1
 }
 
-if ! [ $EUID -eq 0 ]
-then
-  exec sudo /bin/bash "$0" "$@"
-fi
+check_brew() {
+  if ! command -v brew >/dev/null 2>&1
+  then
+    $here/brew_install.sh
+  fi
+}
+
+# if we are being sourced, nothing below here will run
+if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
+
+case $OSTYPE in
+  darwin*)
+    check_brew;;
+  *)
+    if ! [ $EUID -eq 0 ]
+    then
+      exec sudo /bin/bash "$0" "$@"
+    fi
+    ;;
+esac
 
 for pkg in $@
 do

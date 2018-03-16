@@ -13,13 +13,22 @@ reponame()
     echo $dir
 }
 
+has_git_parallel()
+{
+  # git version 2.9 and later have '--jobs N' argument to git submodule update
+  # of the desired version 2.9 and the installed version, which is lower
+  lower=$(printf "2.9\n`git --version | awk '{print $3}'`\n" | sort -V | head -n 1)
+  # if 2.9 is lower, then our version is 2.9 or greater and we are ok
+  [[ "$lower" = 2.9 ]]
+}
+
 clone_deep()
 {
   local giturl
   giturl="$1"
   git clone "$giturl" || return 1
   quiet pushd `reponame $giturl`
-  if command -v nproc >/dev/null 2>&1
+  if has_git_parallel && command -v nproc >/dev/null 2>&1
   then
     parallel="--jobs $(nproc)"
   fi

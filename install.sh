@@ -189,21 +189,10 @@ install_vim()
 
   # vim-gitgutter, show git diff in gutter (left-most column)
   clone_update git://github.com/airblade/vim-gitgutter.git
-
-  # YouCompleteMe requires an install step, which takes a long time
-  clone_update git://github.com/Valloric/YouCompleteMe.git
-  CLANG='--clang-completer'
-  NODE='--tern-completer'
-  GOLANG='--gocode-completer'
-  if ! [ -f YouCompleteMe/third_party/ycmd/ycm_core.so ]
-  then
-    echo "Installing YouCompleteMe"
-    quiet pushd YouCompleteMe
-    ./install.py $CLANG $NODE $GOLANG >/dev/null
-    quiet popd
-  fi
-
   quiet popd
+
+  # YouCompleteMe programmatic text completion
+  $here/scripts/youcompleteme_install.sh
 }
 
 install_node()

@@ -34,8 +34,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   if latest_ninja
   then
     echo "ninja `ninja --version` already installed"
-    exit 0
+  else
+    install_ninja
   fi
-
-  install_ninja
 fi

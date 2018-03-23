@@ -12,7 +12,7 @@ Prefix is <kbd>Ctrl</kbd>+<kbd>b</kbd> by default, but I like GNU Screen's <kbd>
 
 <kbd>Ctrl</kbd>+<kbd>a</kbd>, <kbd>Ctrl</kbd>+<kbd>h</kbd>, <kbd>Ctrl</kbd>+<kbd>h</kbd>, <kbd>Ctrl</kbd>+<kbd>h</kbd>, <kbd>Ctrl</kbd>+<kbd>h</kbd>, <kbd>Ctrl</kbd>+<kbd>h</kbd>, <kbd>Ctrl</kbd>+<kbd>h</kbd>, `<new name>`
 
-# realoading tmux config in a running session
+# reloading tmux config in a running session
 
 <kbd>Ctrl</kbd>+<kbd>a</kbd>, `:source-file ~/.tmux.conf`
 

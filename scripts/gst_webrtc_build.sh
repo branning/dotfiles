@@ -27,7 +27,23 @@ gst_build_repo='git://anongit.freedesktop.org/gstreamer/gst-build'
 # libjson-glib-dev
 install_deps()
 {
-  for pkg in git curl pkg-config libsoup-dev libjson-glib-dev
+  tools='
+    git
+    curl
+    pkg-config
+    flex
+    bison
+    '
+  libs='
+    libglib2.0-dev
+    libsoup2.4-dev
+    libjson-glib-dev
+    libffi-dev
+    libgnutls-dev
+    libopus-dev
+    libvpx-dev
+    '
+  for pkg in $tools $libs
   do
     echo "installing dependency: ${pkg}"
     $here/pkg_install.sh "$pkg"
@@ -60,8 +76,7 @@ install_deps
 install_libnice
 $here/ninja_install.sh
 
-exit 0
-
 set -o xtrace
+pushd ~/gstwebrtc-demos/sendrecv/gst
 gcc -O2 webrtc-sendrecv.c \
-  $(PKG_CONFIG_PATH=$(find ~/gst-build/build -name pkgconfig -type d | tr '\n' :) pkg-config --cflags --libs gstreamer-webrtc-1.0 gstreamer-sdp-1.0 libsoup-2.4 json-glib-1.0) -o webrtc-sendrecv
+  $(PKG_CONFIG_PATH=$(find ~/gst-build/build -name pkgconfig -type d | tr '\n' :) pkg-config --cflags --libs gstreamer-webrtc-1.0 gstreamer-sdp-1.0 gstreamer-rtp-1.0 libsoup-2.4 json-glib-1.0) -o webrtc-sendrecv

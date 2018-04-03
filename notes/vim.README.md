@@ -1,3 +1,15 @@
+## Spaces not tabs
+
+To set 2-space indentation, press <kbd>:</kbd> to enter command mode, then type:
+
+  set tabstop=2 shiftwidth=2 expandtab
+
+## Replace tabs
+
+Follow the [step above](#spaces-not-tabs), then
+
+  :retab
+
 ## To comment out blocks in vim: ##
 
 from https://stackoverflow.com/a/15588798/347567 on 4/2/2018

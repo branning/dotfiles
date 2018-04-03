@@ -35,7 +35,7 @@ install_path()
 # add conda to path
 if [ -d $HOME/miniconda ] && ! onpath $HOME/miniconda
 then
-    export PATH="\$PATH:${miniconda_home}/bin"
+    export PATH="${miniconda_home}/bin:\$PATH"
     conda config --set changeps1 yes
 fi
 EOF

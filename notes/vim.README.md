@@ -2,13 +2,17 @@
 
 To set 2-space indentation, press <kbd>:</kbd> to enter command mode, then type:
 
-  set tabstop=2 shiftwidth=2 expandtab
+    set tabstop=2 shiftwidth=2 expandtab
+
+## Trim trailing whitespace
+
+    :%s/\s\+$//e
 
 ## Replace tabs
 
 Follow the [step above](#spaces-not-tabs), then
 
-  :retab
+    :retab
 
 ## To comment out blocks in vim: ##
 

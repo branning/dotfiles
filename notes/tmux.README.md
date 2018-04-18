@@ -16,6 +16,19 @@ Prefix is <kbd>Ctrl</kbd>+<kbd>b</kbd> by default, but I like GNU Screen's <kbd>
 
 <kbd>Ctrl</kbd>+<kbd>a</kbd>, `:source-file ~/.tmux.conf`
 
+# unfreeze tmux
+
+This seemed to work. I had been playing around with [panes](#panes) and the
+screen stopped responding. Commands were still working, though, for instance
+I could change windows, and a different window would be drawn, but none of
+the commands were updating the screen.
+
+see https://stackoverflow.com/a/47571736
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `:choose-client`
+
+Then choose any of the clients (why were there 2?) and tmux updates again.
+
 # split pane horizontally
 
 <kbd>Ctrl</kbd>+<kbd>a</kbd>, `%`

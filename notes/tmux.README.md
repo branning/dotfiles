@@ -29,7 +29,34 @@ see https://stackoverflow.com/a/47571736
 
 Then choose any of the clients (why were there 2?) and tmux updates again.
 
-# split pane horizontally
+# panes
+
+## split pane vertically
 
 <kbd>Ctrl</kbd>+<kbd>a</kbd>, `%`
+
+## split pane horizontally
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `"`
+
+## close pane
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `x`
+
+## swap panes
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `o`
+
+or
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `<left arrow>`
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `<right arrow>`
+
+Will select the left or right panes.
+
+## select pane by number
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `q`
+
+Pane numbers will be superimposed on panes. Press a number to select the pane.
 

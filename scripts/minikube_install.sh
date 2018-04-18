@@ -15,7 +15,7 @@ error() {
 
 command -v kubectl &>/dev/null || error "kubectl required to install minikube"
 
-release='v0.24.1'
+release='v0.26.0'
 
 case $OSTYPE in
   linux*)  platform='linux';;

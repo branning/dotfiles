@@ -38,3 +38,6 @@ from https://stackoverflow.com/a/15588798/347567 on 4/2/2018
 > - *you can repeatedly push the delete keys below, like a regular delete button*
 - press <kbd>d</kbd> or <kbd>x</kbd> to delete characters, repeatedly if necessary
 
+## Write with sudo trick
+
+    :w !sudo tee %

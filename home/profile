@@ -46,7 +46,8 @@ export LESS=-asrRix8
 # This is known as XON/XOFF flow control. Disable XON/XOFF.
 stty -ixon
 
-# attach tmux session, if one exists
+# attach tmux session, if one exists, and we're not already inside tmux
 command -v tmux >/dev/null 2>&1 &&
+  [ -z ${TMUX+x} ] &&
   tmux list-sessions >/dev/null 2>&1 &&
   tmux attach

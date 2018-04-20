@@ -34,6 +34,20 @@ see https://stackoverflow.com/a/47571736
 
 Then choose any of the clients (why were there 2?) and tmux updates again.
 
+# detach other clients
+
+You may get into strange situations where another client is connected without
+a valid terminal, which will shrink the viewable area to the smallest size of
+the two (which will make the screen unviewable).
+
+To detach other clients:
+
+<kbd>Ctrl</kbd>+<kbd>a</kbd>, `D`
+
+If you are in the situation described above, the list will not appear. Arrow up
+and hit <kbd>Enter</kbd> and hopefully you'll disconnect the client with the
+bad terminal.
+
 # panes
 
 ## split pane vertically

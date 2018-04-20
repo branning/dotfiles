@@ -4,7 +4,7 @@
 
 set -o errexit
 
-version='1.9.2'
+version='1.10.1'
 case $OSTYPE in
   darwin*) platform='darwin';;
   linux*)  platform='linux';;

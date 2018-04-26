@@ -12,6 +12,7 @@ iftopdir=~/src/iftop-${version}
 install_deps()
 {
   deps='
+    build-essential
     libpcap-dev
     ncurses-dev
     '

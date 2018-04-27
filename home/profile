@@ -51,3 +51,9 @@ command -v tmux >/dev/null 2>&1 &&
   [ -z ${TMUX+x} ] &&
   tmux list-sessions >/dev/null 2>&1 &&
   tmux attach
+
+# on Windows Subsystem for Linux Ubuntu, use Docker for Windows
+if grep -qE "(Microsoft|WSL)" /proc/version >/dev/null 2>&1
+then
+    export DOCKER_HOST=tcp://127.0.0.1:2375
+fi

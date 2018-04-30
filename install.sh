@@ -42,7 +42,7 @@ install_dotfiles()
   local symbolic # whether to make symlinmks. systemd hates them!
 
   echo "Linking files from $here/home into $HOME"
-  for file in $(find * -type f); do
+  for file in $(find * -maxdepth 0 -type f); do
     [[ -d `dirname $file` ]] && symbolic='-s' || symbolic=''
     mkdir -p $(dirname "~/.file")
     ln -v -f "$symbolic" $PWD/$file ~/.$file

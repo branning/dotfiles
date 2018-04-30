@@ -1,3 +1,27 @@
+## Split panes
+
+Two vertical panes:
+
+    :vsplit
+
+Two horizontal panes:
+
+    :split
+
+Move cursor from left pane to right pane:
+
+    <kbd>Ctrl</kbd>+W, <kbd>→</kbd>
+
+generally, it's <kbd>Ctrl</kbd>+W, then a movement. Movements can be arrow keys,
+or `h`,`j`,`k`,`l` movements.
+
+Move content from left to right pane:
+
+    <kbd>Ctrl</kbd>+W, L
+
+That's a capital `L`. Generally, the shift registers of the letter-based
+movements will shift content.
+
 ## Spaces not tabs
 
 To set 2-space indentation, press <kbd>:</kbd> to enter command mode, then type:

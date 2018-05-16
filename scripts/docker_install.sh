@@ -5,17 +5,12 @@
 
 set -o errexit
 
-trap 'rm -f get-docker.sh' EXIT
-curl -fsSL get.docker.com -o get-docker.sh
-sudo sh get-docker.eh
-
-
 wsl_docker_comment='on Windows Subsystem for Linux Ubuntu, use Docker for Windows'
 
 here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
 source "${here}/../library/is_wsl.sh" # provides is_wsl()
 
-if is_wsl && ! grep -q "$wsl_docker_comment" $/.profile
+if is_wsl && ! grep -q "$wsl_docker_comment" ~/.profile
 then
   echo "$wsl_docker_comment"
   cat <<WSL >> ~/.profile
@@ -28,3 +23,8 @@ fi
 WSL
 
 fi
+
+# install Docker using convenience script
+trap 'rm -f get-docker.sh' EXIT
+curl -fsSL get.docker.com -o get-docker.sh
+sudo sh get-docker.sh

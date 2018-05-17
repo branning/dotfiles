@@ -6,3 +6,6 @@
 # colorized tab completion outputs
 # https://unix.stackexchange.com/a/133866/148498
 set colored-stats on
+
+# disable audible bell
+set bell-style visible

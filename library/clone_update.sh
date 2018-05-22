@@ -32,7 +32,7 @@ clone_deep()
   then
     parallel="--jobs $(nproc)"
   fi
-  git submodule update --init --recursive "$parallel"
+  git submodule update --init --recursive $parallel
   quiet popd
 }
 

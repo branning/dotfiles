@@ -146,14 +146,24 @@ EOF
 install_vim()
 {
   # vim itself
-  if ! command -v vim
+  if ! command -v vim &>/dev/null || ! grep -q "+python3" <(vim --version)
   then
     case $OSTYPE in
       darwin*)
         error "Install macvim according to: https://github.com/Valloric/YouCompleteMe#mac-os-x"
         ;;
       *)
-        $here/scripts/pkg_install.sh vim
+        # Debian has vim with python plugin support in vim-nox package
+        vim='vim'
+        if os_id=$(source /etc/os-release; echo $ID) && [[ "$os_id" = debian ]]
+        then
+          vim='vim-nox'
+        fi
+        $here/scripts/pkg_install.sh $vim
+        if ! grep -q "+python3" <(vim --version)
+        then
+           error "vim missing python3 plugin support. Install vim according to: https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source"
+        fi
         ;;
     esac
   fi

@@ -1,3 +1,7 @@
+## Unwrap text
+
+    <kbd>v</kbd> <kbd>i</kbd> <kbd>p</kbd> <kbd>J</kbd> ("vipJ")
+
 ## Split panes
 
 Two vertical panes:

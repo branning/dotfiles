@@ -197,6 +197,9 @@ install_vim()
   # vim-markdown
   clone_update git://github.com/plasticboy/vim-markdown.git
 
+  # vim-javscript, for better ES6 highlighting
+  clone_update git://github.com/pangloss/vim-javascript.git
+
   # vim-gitgutter, show git diff in gutter (left-most column)
   clone_update git://github.com/airblade/vim-gitgutter.git
   quiet popd

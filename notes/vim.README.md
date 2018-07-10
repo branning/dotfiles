@@ -69,3 +69,7 @@ from https://stackoverflow.com/a/15588798/347567 on 4/2/2018
 ## Write with sudo trick
 
     :w !sudo tee %
+
+## Execute current line in Bash
+
+    :.w !bash

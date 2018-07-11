@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# from https://stackoverflow.com/a/36368222/347567
+
+# args to this script are:
+# path old-file old-hex old-mode new-file new-hex new-mode
+
+git diff --word-diff $2 $5
+
+exit 0

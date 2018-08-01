@@ -20,6 +20,16 @@ set modeline
 syntax on
 filetype plugin on
 
+" tabs vs spaces has been decided
+set tabstop=2
+set shiftwidth=2
+set expandtab
+
+" for particular langauges
+autocmd Filetype javascript setlocal shiftwidth=2 tabstop=2
+autocmd Filetype html       setlocal shiftwidth=2 tabstop=2
+autocmd Filetype python     setlocal shiftwidth=2 softtabstop=2
+
 " vim-node
 set runtimepath^=~/.vim/bundle/node
 

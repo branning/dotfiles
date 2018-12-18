@@ -17,10 +17,10 @@ become_root() {
 # if we are being sourced, nothing below here will run
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
-become_root
 
 case $OSTYPE in
   linux*)
+    become_root
     # from https://www.spotify.com/us/download/linux/ on 9/19/2017
     # 1. Add the Spotify repository signing keys to be able to verify downloaded
     # packages
@@ -36,6 +36,8 @@ case $OSTYPE in
     # 4. Install Spotify
     apt-get install -y spotify-client
     ;;
+  darwin*)
+    brew cask install spotify;;
   *) 
     error "don't know how to install $OSTYPE yet"
     ;;

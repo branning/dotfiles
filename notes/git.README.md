@@ -1,3 +1,11 @@
+## git checkout with submodules
+
+    git clone --recurse-submodules -j8 git://github.com/branning/cantrips.git
+
+## checkout submodules in already cloned repos
+
+    git submodule update --init --recursive
+
 ## git push fails with zeroPaddedFilemode error
 
 If upon pushing to a remote repo you get an error like this

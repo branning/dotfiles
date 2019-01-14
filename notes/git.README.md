@@ -6,6 +6,10 @@
 
     git submodule update --init --recursive
 
+## get top level directory from anywhere in the tree
+
+    git rev-parse --show-toplevel
+
 ## git push fails with zeroPaddedFilemode error
 
 If upon pushing to a remote repo you get an error like this

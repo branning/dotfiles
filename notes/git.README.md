@@ -1,3 +1,7 @@
+## list commits that are different from master
+
+    git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative ${MASTER}..${MY_FEATURE_BRANCH}
+
 ## git checkout with submodules
 
     git clone --recurse-submodules -j8 git://github.com/branning/cantrips.git

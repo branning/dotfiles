@@ -1,3 +1,11 @@
+## delete merged branches
+
+Be sure to avoid deleting your local develop or master branches. It's not a big
+deal if you do, you can fetch them again, and `branch -d` should refuse to
+delete them if they're dirty.
+
+    git branch --merged | grep -vE '(master|develop)' | xargs git branch -d
+
 ## list commits that are different from master
 
     git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative ${MASTER}..${MY_FEATURE_BRANCH}

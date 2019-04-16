@@ -4,7 +4,8 @@
 
 set -o errexit
 
-here=$(dirname $(readlink -f $0 2>/dev/null || $0))
+readlink=$(command -v greadlink || command -v readlink)
+here=$(dirname $($readlink -f $0 2>/dev/null || $0))
 
 debian_install_sublimetext()
 {

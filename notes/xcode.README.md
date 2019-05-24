@@ -1,3 +1,7 @@
+## SwiftLint integration for XCode
+
+https://github.com/norio-nomura/SwiftLintForXcode
+
 ## Get list of known devices with UUIDs
 
 instruments -s devices | grep -v Simulator

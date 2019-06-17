@@ -10,7 +10,7 @@ here=$(cd $(dirname $BASH_SOURCE); pwd)
 
 if ! command -v kubectl >/dev/null 2>&1
 then
-  $here/gcloud_install.sh
+  $here/kubectl_install.sh
 fi
 
 if ! command -v virtualbox >/dev/null 2>&1

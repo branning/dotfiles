@@ -39,8 +39,21 @@ install_vs_repo() {
 # if we are being sourced, nothing below here will run
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
-check_tool curl gpg
-become_root
-install_vs_repo
-apt update
-apt install -y code # or code-insiders
+case $OSTYPE in
+  linux*)
+    check_tool curl gpg
+    become_root
+    install_vs_repo
+    apt update
+    apt install -y code # or code-insiders
+    ;;
+  darwin*)
+    check_tool brew
+    brew cask install visual-studio-code
+    ;;
+  cygwin*|msys*|mingw32*)
+    check_tool scoop
+    scoop bucket add extras
+    scoop install vscode
+    ;;
+esac

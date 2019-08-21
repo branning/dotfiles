@@ -302,6 +302,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         $here/scripts/rescuetime_setup.sh
       else
         echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext and rescuetime"
+        $here/scripts/pkg_install.sh ranger
       fi
   esac
   install_node

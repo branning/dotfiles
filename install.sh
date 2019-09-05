@@ -81,6 +81,12 @@ install_prompt()
   $here/scripts/gitprompt_install.sh
 }
 
+install_fonts()
+{
+  # a fixed-width coding font with ligatures
+  $here/scripts/firacode_font_install.sh
+}
+
 install_git_markdown_word_diff()
 {
   # show word differences in markdown (*.md) files when you run `git diff`
@@ -292,6 +298,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_aliases
   install_lscolors
   install_prompt
+  install_fonts
   install_git_markdown_word_diff
   # are we in a graphical session? if so, install sublimetext and rescuetime
   case "$OSTYPE" in

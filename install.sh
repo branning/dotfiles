@@ -162,7 +162,8 @@ install_vim()
   then
     case $OSTYPE in
       darwin*)
-        error "Install macvim according to: https://github.com/Valloric/YouCompleteMe#mac-os-x"
+        $here/scripts/pkg_install cmake macvim
+        #error "Install macvim according to: https://github.com/ycm-core/YouCompleteMe#macos"
         ;;
       *)
         # Debian has vim with python plugin support in vim-nox package

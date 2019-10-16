@@ -15,15 +15,15 @@ library='
   '
 for tool in $library
 do
-  here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+  here=$(cd $(dirname ${BASH_SOURCE[0]}); echo $PWD)
   source "${here}/library/${tool}.sh"
 done
 
 # once more, with feeling
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd $(dirname ${BASH_SOURCE[0]}); echo $PWD)
 
 error() {
-  echo "`basename $0` error: $*" >&2
+  echo "`basename ${BASH_SOURCE[0]}` error: $*" >&2
   exit 1
 }
 

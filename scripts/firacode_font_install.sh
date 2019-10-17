@@ -4,6 +4,9 @@
 
 case $OSTYPE in
   darwin*)
+    if brew cask list | grep -q font-fira-code; then
+      exit 0
+    fi
     brew tap homebrew/cask-fonts
     brew cask install font-fira-code
     ;;

@@ -83,8 +83,17 @@ install_prompt()
 
 install_fonts()
 {
-  # a fixed-width coding font with ligatures
+  # firacode, fixed-width coding font with ligatures
   $here/scripts/firacode_font_install.sh
+  case $OSTYPE in
+    darwin*)
+      open "$here/init/darwin/Big Ol Code.terminal"
+      sudo -u $USER defaults write com.apple.Terminal.plist "Default Window Settings" "Big Ol Code"
+      sudo -u $USER defaults write com.apple.Terminal.plist "Startup Window Settings" "Big Ol Code"
+      ;;
+    *)
+      ;;
+  esac
 }
 
 install_git_markdown_word_diff()

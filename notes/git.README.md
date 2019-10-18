@@ -1,3 +1,15 @@
+## change list of files versus master
+
+Compare current branch against `master` branch:
+
+    git diff --name-status master
+
+Compare any two branches:
+
+    git diff --name-status firstbranch..secondbranch
+
+https://stackoverflow.com/a/822859
+
 ## delete merged branches
 
 Be sure to avoid deleting your local develop or master branches. It's not a big

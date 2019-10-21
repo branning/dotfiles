@@ -41,6 +41,21 @@ install_packages()
 # if we are being sourced, nothing below here will run
 if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
-debian_install_sublimetext
+case $OSTYPE in
+  linux*)
+    debian_install_sublimetext
+    ;;
+  darwin*)
+    brew cask install sublime-text
+    ;;
+  win*|msys*)
+    scoop bucket add extras
+    scoop install sublime-text
+    ;;
+  *)
+    error "$OSTYPE isn't supported yet for SublimeText install"
+    ;;
+esac
+
 install_packages
 install_package_control

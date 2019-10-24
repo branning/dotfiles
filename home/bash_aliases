@@ -6,6 +6,9 @@ ls --color=al > /dev/null 2>&1 && alias ls='ls -F --color=al' || alias ls='ls -G
 # jq is colorize always, even when the destination is a pipe and not a terminal
 alias jq='jq -C'
 
+# less always accept colorized input
+alias less='less -R'
+
 # `cls` to clear the screen
 alias cls='printf "\033c"'
 

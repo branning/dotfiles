@@ -3,6 +3,9 @@ alias dl='docker ps -l -q'
 # `ls` is colorized, on both osx and linux
 ls --color=al > /dev/null 2>&1 && alias ls='ls -F --color=al' || alias ls='ls -G'
 
+# jq is colorize always, even when the destination is a pipe and not a terminal
+alias jq='jq -C'
+
 # `cls` to clear the screen
 alias cls='printf "\033c"'
 

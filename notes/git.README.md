@@ -1,3 +1,7 @@
+## compare two files outside of repository
+
+    git diff --no-index file1.txt file2.txt
+
 ## change list of files versus master
 
 Compare current branch against `master` branch:

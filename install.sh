@@ -230,6 +230,26 @@ install_vim()
   $here/scripts/youcompleteme_install.sh
 }
 
+install_joplin()
+{
+  case $OSTYPE in
+    linux*)
+      script_url='https://raw.githubusercontent.com/laurent22/joplin/master/Joplin_install_and_update.sh'
+      wget -O - "$script_url" | bash
+      ;;
+    darwin*)
+      brew cask install joplin;;
+    cygwin*|msys*|mingw32*)
+      scoop install joplin;;
+  esac
+}
+
+install_editors()
+{
+  install_vim
+  $here/scripts/joplin_install.sh
+}
+
 install_node()
 {
   if ! command -v nvm
@@ -324,7 +344,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   esac
   install_node
   install_go
-  install_vim
+  install_editors
   install_python
   source ~/.profile
   install_tools

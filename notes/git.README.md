@@ -1,3 +1,7 @@
+## reset submodule and discard changes
+
+    git submodule update --init
+
 ## compare two files outside of repository
 
     git diff --no-index file1.txt file2.txt

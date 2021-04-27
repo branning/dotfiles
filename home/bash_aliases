@@ -15,3 +15,6 @@ alias cls='printf "\033c"'
 
 # Curtis Allen's kctx trick: https://asciinema.org/a/dltaxEgFpmTzHp4ihhEtZLAKX
 alias kctx='kubectl config use-context $(kubectl config get-contexts -o=name | fzf)'
+
+# my own pstree trick
+alias psme='pstree -p $$'

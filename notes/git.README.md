@@ -1,3 +1,7 @@
+## delete tag from remote
+
+    git push --delete origin TAGNAME
+
 ## reset submodule and discard changes
 
     git submodule update --init

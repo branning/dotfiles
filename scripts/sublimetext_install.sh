@@ -46,7 +46,7 @@ case $OSTYPE in
     debian_install_sublimetext
     ;;
   darwin*)
-    brew cask install sublime-text
+    brew install --cask sublime-text
     ;;
   win*|msys*)
     scoop bucket add extras

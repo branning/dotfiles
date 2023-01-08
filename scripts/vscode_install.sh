@@ -49,7 +49,7 @@ case $OSTYPE in
     ;;
   darwin*)
     check_tool brew
-    brew cask install visual-studio-code
+    brew install --cask visual-studio-code
     ;;
   cygwin*|msys*|mingw32*)
     check_tool scoop

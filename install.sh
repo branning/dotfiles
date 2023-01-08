@@ -23,7 +23,7 @@ done
 here=$(cd $(dirname ${BASH_SOURCE[0]}); echo $PWD)
 
 error() {
-  echo "`basename ${BASH_SOURCE[0]}` error: $*" >&2
+  echo "$(basename ${BASH_SOURCE[0]}) error: $*" >&2
   exit 1
 }
 
@@ -43,9 +43,9 @@ install_dotfiles()
 
   echo "Linking files from $here/home into $HOME"
   for file in $(find * -maxdepth 0 -type f); do
-    [[ -d `dirname $file` ]] && symbolic='-s' || symbolic=''
-    mkdir -p $(dirname "~/.file")
-    ln -v -f "$symbolic" $PWD/$file ~/.$file
+    [[ -d $(dirname $file) ]] && symbolic='-s' || symbolic=''
+    mkdir -p "$(dirname ~/."$file")"
+    ln -v -f "$symbolic" "$PWD/$file" ~/."$file"
   done
   quiet popd
 }
@@ -53,10 +53,10 @@ install_dotfiles()
 install_bash_completion()
 {
   # Install base bash-completion with fewer bugs
-  $here/scripts/bash_completion.sh
+  "$here/scripts/bash_completion.sh"
 
   # Install other Bash completions we have collected
-  for completion_script in $here/scripts/bash_completion.d/*.sh
+  for completion_script in "$here"/scripts/bash_completion.d/*.sh
   do
     "$completion_script"
   done
@@ -65,31 +65,31 @@ install_bash_completion()
 install_aliases()
 {
   # Curtis Allen's kctx trick
-  $here/scripts/kctx.sh
+  "$here/scripts/kctx.sh"
 }
 
 install_lscolors()
 {
   # LS_COLORS is used by readline when `set colored-stats on` is set
   # grab about 300 different colors for different filetypes
-  $here/scripts/lscolors_install.sh
+  "$here/scripts/lscolors_install.sh"
 }
 
 install_prompt()
 {
   # an informative git prompt for Bash
-  $here/scripts/gitprompt_install.sh
+  "$here/scripts/gitprompt_install.sh"
 }
 
 install_fonts()
 {
   # firacode, fixed-width coding font with ligatures
-  $here/scripts/firacode_font_install.sh
+  "$here/scripts/firacode_font_install.sh"
   case $OSTYPE in
     darwin*)
       open "$here/init/darwin/Big Ol Code.terminal"
-      sudo -u $USER defaults write com.apple.Terminal.plist "Default Window Settings" "Big Ol Code"
-      sudo -u $USER defaults write com.apple.Terminal.plist "Startup Window Settings" "Big Ol Code"
+      sudo -u "$USER" defaults write com.apple.Terminal.plist "Default Window Settings" "Big Ol Code"
+      sudo -u "$USER" defaults write com.apple.Terminal.plist "Startup Window Settings" "Big Ol Code"
       ;;
     *)
       ;;
@@ -99,7 +99,7 @@ install_fonts()
 install_git_markdown_word_diff()
 {
   # show word differences in markdown (*.md) files when you run `git diff`
-  $here/scripts/git_markdown_word_diff.sh
+  "$here/scripts/git_markdown_word_diff.sh"
 }
 
 install_sublimetext()
@@ -113,7 +113,7 @@ install_sublimetext()
       user_keymap=$user_dir/Default\ \(OSX\).sublime-keymap
       ;;
     linux*)
-      bin_dir=/usr/bin
+      bin_path=/usr/bin
       user_dir=$HOME/.config/sublime-text-3/Packages/User
       user_keymap=$user_dir/Default\ \(Linux\).sublime-keymap
       ;;
@@ -135,11 +135,11 @@ install_sublimetext()
     esac
   fi
 
-  if ! command -v subl && ! grep -q "${subl_dir}" $HOME/.profile
+  if ! command -v subl && ! grep -q "${subl_dir}" "$HOME/.profile"
   then
     echo "Adding Sublime Text bin dir to PATH: ${subl_dir}"
     export PATH="$PATH:${bin_path}"
-    cat  <<EOF >>$HOME/.profile
+    cat  <<EOF >>"$HOME/.profile"
 
 # add sublime text bin to path
 if [ -d '${subl_dir}' ]
@@ -171,7 +171,7 @@ install_vim()
   then
     case $OSTYPE in
       darwin*)
-        $here/scripts/pkg_install cmake macvim
+        "$here/scripts/pkg_install.sh" cmake macvim
         #error "Install macvim according to: https://github.com/ycm-core/YouCompleteMe#macos"
         ;;
       *)
@@ -181,7 +181,7 @@ install_vim()
         then
           vim='vim-nox'
         fi
-        $here/scripts/pkg_install.sh $vim
+        "$here/scripts/pkg_install.sh" $vim
         if ! grep -q "+python3" <(vim --version)
         then
            error "vim missing python3 plugin support. Install vim according to: https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source"
@@ -191,15 +191,15 @@ install_vim()
   fi
 
   # tools needed
-  $here/scripts/pkg_install.sh git cmake
-  $here/scripts/g++_install.sh
+  "$here/scripts/pkg_install.sh" git cmake
+  "$here/scripts/g++_install.sh"
 
   # the ~/.vim file has a line to autoload pathogen, which will autoload all plugins
   # that we install to ~/.vim/bundle
   # so we install pathogen, and some plugins, there
-  mkdir -p $HOME/.vim/bundle
-  quiet pushd $HOME/.vim/bundle
-  echo "Installing vim plugins to `pwd`"
+  mkdir -p "$HOME/.vim/bundle"
+  quiet pushd "$HOME/.vim/bundle"
+  echo "Installing vim plugins to $PWD"
 
   # vim-pathogen
   clone_update git://github.com/tpope/vim-pathogen.git
@@ -208,7 +208,7 @@ install_vim()
   if command -v nvim
   then
     pathogen_autoload=~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-    mkdir -p $(basename $pathogen_autoload)
+    mkdir -p $(basename "$pathogen_autoload")
     ln -s "$pathogen_autoload" /usr/share/nvim/runtime/pathogen.vim
   fi
 
@@ -227,13 +227,13 @@ install_vim()
   quiet popd
 
   # YouCompleteMe programmatic text completion
-  $here/scripts/youcompleteme_install.sh
+  # $here/scripts/youcompleteme_install.sh
 }
 
 install_editors()
 {
   install_vim
-  $here/scripts/joplin_install.sh
+  "$here/scripts/joplin_install.sh"
 }
 
 install_node()
@@ -241,12 +241,12 @@ install_node()
   if ! command -v nvm
   then
     info "installing nvm"
-    quiet $here/scripts/nvm_install.sh
+    quiet "$here/scripts/nvm_install.sh"
   fi
   if ! command -v yarn
   then
     info "installing yarn"
-    quiet $here/scripts/yarn_install.sh
+    quiet "$here/scripts/yarn_install.sh"
   fi
 
   source ~/.profile
@@ -264,31 +264,31 @@ install_go()
   if ! command -v go
   then
     info "installing golang"
-    $here/scripts/go_install.sh
+    "$here/scripts/go_install.sh"
   fi
 }
 
 install_python()
 {
   # install conda for python environments
-  $here/scripts/miniconda_install.sh
+  "$here/scripts/miniconda_install.sh"
 }
 
 install_tools()
 {
   if ! command -v cfssl
   then
-    $here/scripts/cfssl_install.sh
+    "$here/scripts/cfssl_install.sh"
   fi
 
   # mycli is a mysql command line interface with smart tab completion
   pip install mycli
 
   # git lfs (large file support) is used to store references to huge files
-  $here/scripts/gitlfs_install.sh
+  "$here/scripts/gitlfs_install.sh"
 
   # kr is the kryptonite cli tool for managing SSH keys
-  $here/scripts/kryptonite_install.sh
+  "$here/scripts/kryptonite_install.sh"
 }
 
 disable_unwanted_devices()
@@ -322,16 +322,16 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
       if ! [ -z ${XDG_CURRENT_DESKTOP+x} ]
       then
         install_sublimetext
-        $here/scripts/rescuetime_setup.sh
+        "$here/scripts/rescuetime_setup.sh"
       else
         echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext and rescuetime"
-        $here/scripts/pkg_install.sh ranger
+        "$here/scripts/pkg_install.sh" ranger
       fi
   esac
   install_node
   install_go
   install_editors
-  install_python
+  # install_python
   source ~/.profile
   install_tools
 fi

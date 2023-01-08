@@ -7,13 +7,13 @@ set -o xtrace
 
 error()
 {
-    echo "`basename $0` error: $@" 2>&1
+    echo "$(basename $0) error: $@" 2>&1
     exit 1 
 }
 
 homebrew_hint()
 {
-    echo 'Try: /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+    echo "Try: /usr/bin/ruby -e $(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 } 
 
 find_tlmgr()
@@ -43,15 +43,15 @@ then
     error "homebrew is not installed"
 fi
 
-if ! brew list | grep -q basictex
+if ! brew list --cask | grep -q basictex
 then
-    brew cask install basictex
+    brew install --cask basictex
 fi
 
-tlmgr=`find_tlmgr`
-[ -x $tlmgr ] || error "Cannot find or execute tlmgr (at path $tlmgr)"
+tlmgr=$(find_tlmgr)
+[ -x "$tlmgr" ] || error "Cannot find or execute tlmgr (at path $tlmgr)"
 
-sudo $tlmgr update --self
+sudo "$tlmgr" update --self
 rmarkdown_deps
 
 

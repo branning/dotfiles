@@ -37,7 +37,7 @@ case $OSTYPE in
     apt-get install -y spotify-client
     ;;
   darwin*)
-    brew cask install spotify;;
+    brew install --cask spotify;;
   *) 
     error "don't know how to install $OSTYPE yet"
     ;;

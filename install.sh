@@ -27,6 +27,15 @@ error() {
   exit 1
 }
 
+install_bash()
+{
+  # use Bash as default shell
+  if [ "$SHELL" != '/bin/bash' ]; then
+    chsh -s /bin/bash
+    exec -l /bin/bash
+  fi
+}
+
 install_deps()
 {
   for pkg in git curl jq
@@ -308,6 +317,7 @@ disable_unwanted_devices()
 
 # install everything, if we are not being sourced
 if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
+  install_bash
   install_deps
   install_dotfiles
   install_bash_completion

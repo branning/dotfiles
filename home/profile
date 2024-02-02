@@ -52,3 +52,10 @@ command -v tmux >/dev/null 2>&1 &&
   tmux list-sessions >/dev/null 2>&1 &&
   tmux attach
 
+# used for `repo` alias
+export DEVMACHINE=kernelsanders
+export DEVROOT=/home/philip/src/
+
+# disable deprecation warnings for Bash in MacOS Ventura and later
+export BASH_SILENCE_DEPRECATION_WARNING=1
+

@@ -1,0 +1,7 @@
+# Open repo on remote host
+repo(){
+  target=${1?" Must provide repository name to open on $DEVMACHINE in $DEVROOT"}
+  if [ -z "${DEVMACHINE+x}" ]; then error "DEVMACHINE not defined"; fi
+  if [ -z "${DEVROOT+x}" ]; then error "DEVROOT not defined"; fi
+  code --remote "ssh-remote+$DEVMACHINE" "$DEVROOT/$target"
+}

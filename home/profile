@@ -54,8 +54,13 @@ command -v tmux >/dev/null 2>&1 &&
 
 # used for `repo` alias
 export DEVMACHINE=kernelsanders
-export DEVROOT=/home/philip/src/
+export DEVROOT=/home/philip/src
 
 # disable deprecation warnings for Bash in MacOS Ventura and later
 export BASH_SILENCE_DEPRECATION_WARNING=1
+
+# Install Homebrew paths on MacOS
+if [ "$(uname)" == "Darwin" ]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
 

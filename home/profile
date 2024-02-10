@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 # ~/.profile: executed by the command interpreter for login shells.
 # This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
 # exists.
@@ -17,11 +18,11 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 onpath() {
-  echo $PATH | grep -q "$1"
+  echo "$PATH | grep -q $1"
 }
 
 # set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] && ! onpath $HOME/bin
+if [ -d "$HOME/bin" ] && ! onpath "$HOME/bin"
 then
     PATH="$HOME/bin:$PATH"
 fi
@@ -29,7 +30,7 @@ fi
 if [ -n "$BASH_VERSION" ]
 then
     # add rbenv to path
-    if [ -d $HOME/.rbenv ] && ! onpath $HOME/.rbenv
+    if [ -d "$HOME/.rbenv" ] && ! onpath "$HOME/.rbenv"
     then
         PATH="$PATH:$HOME/.rbenv/bin"
         PATH="$PATH:$HOME/.rbenv/shims"
@@ -63,4 +64,3 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 if [ "$(uname)" == "Darwin" ]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
-

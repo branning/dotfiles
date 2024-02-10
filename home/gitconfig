@@ -1,9 +1,10 @@
 [user]
 	email = branning@gmail.com
 	name = Philip Branning
+	signingkey = ~/.ssh/id_1password.pub
 [core]
 	editor = vim
-	attributesfile = /Users/philip/.gitattributes
+	attributesfile = ~/.gitattributes
 [color]
 	ui = auto
 [alias]
@@ -12,3 +13,5 @@ logpretty = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue
 	default = simple
 [diff "markdown"]
 	command = /Users/philip/src/dotfiles/scripts/git-word-diff-driver
+[gpg]
+	format = ssh

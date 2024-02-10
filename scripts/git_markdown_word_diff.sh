@@ -26,7 +26,8 @@ if ! git config --get core.attributesfile >/dev/null
 then
   # tell git to use ~/.gitattributes
   # see https://git-scm.com/docs/gitattributes
-  git config --global core.attributesfile ~/.gitattributes
+  # shellcheck disable=SC2088
+  git config --global core.attributesfile '~/.gitattributes'
 fi
 
 if ! git config --get diff.markdown.command >/dev/null

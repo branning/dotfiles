@@ -41,7 +41,7 @@ install_deps()
   for pkg in git curl jq
   do
     info "installing dependency: ${pkg}"
-    $here/scripts/pkg_install.sh "$pkg"
+    "$here/scripts/pkg_install.sh $pkg"
   done
 }
 
@@ -105,8 +105,17 @@ install_fonts()
   esac
 }
 
-install_git_markdown_word_diff()
+configure_git_ssh_keysigning()
 {
+  git config --global gpg.format ssh
+  # shellcheck disable=SC2088
+  git config --global user.signingkey '~/.ssh/id_1password.pub'
+}
+
+configure_git()
+{
+  configure_git_ssh_keysigning
+
   # show word differences in markdown (*.md) files when you run `git diff`
   "$here/scripts/git_markdown_word_diff.sh"
 }
@@ -325,7 +334,7 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
   install_lscolors
   install_prompt
   install_fonts
-  install_git_markdown_word_diff
+  configure_git
   # are we in a graphical session? if so, install sublimetext and rescuetime
   case "$OSTYPE" in
     linux*)

@@ -33,9 +33,11 @@ autocmd Filetype python     setlocal shiftwidth=2 softtabstop=2
 " vim-node
 set runtimepath^=~/.vim/bundle/node
 
-" turn pathogen on for autoloading plugins in ~/.vim/bundle
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+" Turn Pathogen on for autoloading plugins in ~/.vim/bundle, only if it exists
+if filereadable(expand("~/.vim/bundle/vim-pathogen/autoload/pathogen.vim"))
+    runtime bundle/vim-pathogen/autoload/pathogen.vim
+    execute pathogen#infect()
+endif
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1

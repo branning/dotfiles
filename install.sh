@@ -304,9 +304,6 @@ install_tools()
 
   # git lfs (large file support) is used to store references to huge files
   "$here/scripts/gitlfs_install.sh"
-
-  # kr is the kryptonite cli tool for managing SSH keys
-  "$here/scripts/kryptonite_install.sh"
 }
 
 disable_unwanted_devices()

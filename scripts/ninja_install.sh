@@ -6,7 +6,7 @@
 latest_ninja()
 {
   # returns true if the latest ninja is installed
-  latest='1.8.2'
+  latest='1.11.1'
   # sort the desired and actual versions. if the lower of the two is the same
   # as the latest, then the installed version is equal or greater than latest
   lower=$(printf "${latest}\n`ninja --version`\n" | sort -V | head -n 1)
@@ -17,7 +17,7 @@ install_ninja()
 {
   case $OSTYPE in
     darwin*) os='mac';;
-    win*)    os='win';; 
+    win*)    os='win';;
     linux*)  os='linux';;
     *)       echo >&2 "unsupported OS: $OSTYPE"; exit 1;;
   esac

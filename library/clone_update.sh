@@ -6,11 +6,11 @@ source "$here/quiet.sh"
 reponame()
 {   # from a git url, extract default repo directory name
     url=$1
-    dir=`basename $url`
+    dir=$(basename $url)
     # delete '.git' from the right end.
     # see http://tldp.org/LDP/abs/html/parameter-substitution.html#PCTPATREF
     dir=${dir%%.git}
-    echo $dir
+    echo "$dir"
 }
 
 has_git_parallel()
@@ -26,8 +26,8 @@ clone_deep()
 {
   local giturl
   giturl="$1"
-  git clone "$giturl" || return 1
-  quiet pushd `reponame $giturl`
+  git clone "$giturl" --single-branch || return 1
+  quiet pushd $(reponame "$giturl")
   if has_git_parallel && command -v nproc >/dev/null 2>&1
   then
     parallel="--jobs $(nproc)"
@@ -48,11 +48,11 @@ clone_update()
 {
   # clone a git repo, or if already cloned, pull
   giturl="$1"
-  repo=`reponame $giturl`
+  repo=$(reponame "$giturl")
   echo "  cloning ${giturl}"
   if ! quiet clone_deep "$giturl"
   then
-    quiet pushd $repo
+    quiet pushd "$repo"
     if git_clean
     then
         quiet git pull

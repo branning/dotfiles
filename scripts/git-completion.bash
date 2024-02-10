@@ -39,6 +39,22 @@
 #     When set to "1", do not include "DWIM" suggestions in git-checkout
 #     and git-switch completion (e.g., completing "foo" when "origin/foo"
 #     exists).
+#
+#   GIT_COMPLETION_SHOW_ALL_COMMANDS
+#
+#     When set to "1" suggest all commands, including plumbing commands
+#     which are hidden by default (e.g. "cat-file" on "git ca<TAB>").
+#
+#   GIT_COMPLETION_SHOW_ALL
+#
+#     When set to "1" suggest all options, including options which are
+#     typically hidden (e.g. '--allow-empty' for 'git commit').
+#
+#   GIT_COMPLETION_IGNORE_CASE
+#
+#     When set, uses for-each-ref '--ignore-case' to find refs that match
+#     case insensitively, even on systems with case sensitive file systems
+#     (e.g., completing tag name "FOO" on "git checkout f<TAB>").
 
 case "$COMP_WORDBREAKS" in
 *:*) : great ;;

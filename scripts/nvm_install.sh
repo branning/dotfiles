@@ -5,7 +5,7 @@
 # set PROFILE=~/.profile to avoid writing to ~/.bashrc, which we don't manage
 # with the dotfiles herein
 
-nvm='0.39.1'
+nvm='0.39.7'
 
 curl -s -o- https://raw.githubusercontent.com/creationix/nvm/v${nvm}/install.sh \
   | PROFILE=~/.profile bash

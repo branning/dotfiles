@@ -294,13 +294,15 @@ install_python()
 
 install_tools()
 {
-  if ! command -v cfssl
-  then
-    "$here/scripts/cfssl_install.sh"
-  fi
+  # TODO: Fix
+  # if ! command -v cfssl
+  # then
+  #   "$here/scripts/cfssl_install.sh"
+  # fi
 
-  # mycli is a mysql command line interface with smart tab completion
-  pip install mycli
+  # TODO: Fix
+  # # mycli is a mysql command line interface with smart tab completion
+  # pip install mycli
 
   # git lfs (large file support) is used to store references to huge files
   "$here/scripts/gitlfs_install.sh"

@@ -345,6 +345,10 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         echo "non-graphical session (XDG_CURRENT_DESKTOP not defined), skipping sublimetext and rescuetime"
         "$here/scripts/pkg_install.sh" ranger
       fi
+      ;;
+    darwin*)
+      brew install rescuetime
+      ;;
   esac
   install_node
   install_go

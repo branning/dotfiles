@@ -308,6 +308,8 @@ install_tools()
 
   # neofetch is a system info display tool
   "$here/scripts/neofetch_install.sh"
+
+  "$here/scripts/pkg_install.sh" htop
 }
 
 disable_unwanted_devices()

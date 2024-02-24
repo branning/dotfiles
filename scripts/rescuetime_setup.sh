@@ -24,7 +24,7 @@ install_rescuetime()
   latest_url=https://www.rescuetime.com/installers/rescuetime_beta_amd64.deb
   wget -O $deb $latest_url
   install_deps
-  dpkg -i $deb
+  sudo apt install $deb
   rm $deb
 }
 

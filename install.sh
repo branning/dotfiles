@@ -212,39 +212,28 @@ install_vim()
   "$here/scripts/pkg_install.sh" git cmake
   "$here/scripts/g++_install.sh"
 
-  # the ~/.vim file has a line to autoload pathogen, which will autoload all plugins
-  # that we install to ~/.vim/bundle
-  # so we install pathogen, and some plugins, there
-  mkdir -p "$HOME/.vim/bundle"
-  quiet pushd "$HOME/.vim/bundle"
-  echo "Installing vim plugins to $PWD"
+  # TODO: fix the broken vim pathogen and plugin situation
+  # # the ~/.vim file has a line to autoload pathogen, which will autoload all plugins
+  # # that we install to ~/.vim/bundle
+  # # so we install pathogen, and some plugins, there
+  # mkdir -p "$HOME/.vim/bundle"
+  # quiet pushd "$HOME/.vim/bundle"
+  # echo "Installing vim plugins to $PWD"
 
-  # vim-pathogen
-  clone_update git://github.com/tpope/vim-pathogen.git
+  # TODO: fix the broken vim pathogen and plugin situation
+  # # vim-markdown
+  # git clone git://github.com/plasticboy/vim-markdown.git
 
-  # neovim support for pathogen
-  if command -v nvim
-  then
-    pathogen_autoload=~/.vim/bundle/vim-pathogen/autoload/pathogen.vim
-    mkdir -p $(basename "$pathogen_autoload")
-    ln -s "$pathogen_autoload" /usr/share/nvim/runtime/pathogen.vim
-  fi
+  # TODO: fix the broken vim pathogen and plugin situation
+  # # vim-javscript, for better ES6 highlighting
+  # git clone git://github.com/pangloss/vim-javascript.git
 
-  # vim-fugitive requires a config step
-  clone_update git://github.com/tpope/vim-fugitive.git
-  vim -u NONE -c "helptags vim-fugitive/doc" -c q
+  # TODO: fix the broken vim pathogen and plugin situation
+  # # vim-gitgutter, show git diff in gutter (left-most column)
+  # git clone git://github.com/airblade/vim-gitgutter.git
+  # quiet popd
 
-  # vim-markdown
-  clone_update git://github.com/plasticboy/vim-markdown.git
-
-  # vim-javscript, for better ES6 highlighting
-  clone_update git://github.com/pangloss/vim-javascript.git
-
-  # vim-gitgutter, show git diff in gutter (left-most column)
-  clone_update git://github.com/airblade/vim-gitgutter.git
-  quiet popd
-
-  # YouCompleteMe programmatic text completion
+  # # YouCompleteMe programmatic text completion
   # $here/scripts/youcompleteme_install.sh
 }
 
@@ -252,6 +241,13 @@ install_editors()
 {
   install_vim
   "$here/scripts/joplin_install.sh"
+}
+
+install_toolchains()
+{
+  install_node
+  install_go
+  install_rust
 }
 
 install_node()
@@ -279,17 +275,22 @@ install_node()
 
 install_go()
 {
+  printf "Checking Golang: "
   if ! command -v go
   then
-    info "installing golang"
+    info "Installing Golang"
     "$here/scripts/go_install.sh"
   fi
 }
 
-install_python()
+install_rust()
 {
-  # install conda for python environments
-  "$here/scripts/miniconda_install.sh"
+  printf "Checking Rust: "
+  if ! command -v cargo
+  then
+    info "Installing Rust"
+    "$here/scripts/rust_install.sh"
+  fi
 }
 
 install_tools()
@@ -306,6 +307,9 @@ install_tools()
 
   # git lfs (large file support) is used to store references to huge files
   "$here/scripts/gitlfs_install.sh"
+
+  # neofetch is a system info display tool
+  "$here/scripts/neofetch_install.sh"
 }
 
 disable_unwanted_devices()
@@ -350,10 +354,8 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
       brew install rescuetime
       ;;
   esac
-  install_node
-  install_go
   install_editors
-  # install_python
+  install_toolchains
   source ~/.profile
   install_tools
 fi

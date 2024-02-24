@@ -75,24 +75,6 @@ if [ "$(uname)" == "Darwin" ]; then
 
 fi
 
-# install git bash completion
-if [ -n "$BASH_VERSION" ]
-then
-  source /Users/philip/src/dotfiles/scripts/bash_completion.d/../git-completion.bash
-fi
-
-# install ssh hostname completion
-if [ -n "$BASH_VERSION" ]
-then
-  source /Users/philip/src/dotfiles/scripts/bash_completion.d/../ssh-completion.bash
-fi
-
-# install tmux bash completion
-if [ -n "$BASH_VERSION" ]
-then
-  source /Users/philip/src/dotfiles/scripts/bash_completion.d/../bash_completion_tmux.sh
-fi
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
@@ -107,17 +89,6 @@ export GOPATH=$HOME/go
 if [ -d /usr/local/go/bin ]
 then
   export PATH="$PATH:/usr/local/go/bin:$GOPATH/bin"
-fi
-
-_direnv_hook() {
-  local previous_exit_status=$?;
-  trap -- '' SIGINT;
-  eval "$("/usr/local/bin/direnv" export bash)";
-  trap - SIGINT;
-  return $previous_exit_status;
-};
-if ! [[ "${PROMPT_COMMAND:-}" =~ _direnv_hook ]]; then
-  PROMPT_COMMAND="_direnv_hook${PROMPT_COMMAND:+;$PROMPT_COMMAND}"
 fi
 
 # pip bash completion start

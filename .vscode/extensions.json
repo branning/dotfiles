@@ -1,6 +1,8 @@
 {
     "recommendations": [
         "timonwong.shellcheck",
-        "yzhang.markdown-all-in-one"
+        "yzhang.markdown-all-in-one",
+        "ms-vscode.makefile-tools",
+        "eamodio.gitlens",
     ]
 }

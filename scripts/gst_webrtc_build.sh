@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #
 # build Gstreamer's webrtc plugin, as well as Gstreamer
-# 
+#
 # includes script snippets from pioneer efforts of @nh2 from
 # https://github.com/centricular/gstwebrtc-demos/issues/2
 
@@ -70,7 +70,7 @@ if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
 set -euo pipefail
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 install_deps
 install_libnice

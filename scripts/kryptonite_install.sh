@@ -2,7 +2,7 @@
 #
 # instruction from https://krypt.co/install/
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 if ! command -v curl >/dev/null 2>&1
 then

@@ -5,7 +5,7 @@
 
 set -o errexit
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 if ! command -v wget >/dev/null 2>&1
 then

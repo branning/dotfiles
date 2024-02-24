@@ -13,12 +13,12 @@ library='
   '
 for tool in $library
 do
-  here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+  here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
   source "${here}/../library/${tool}.sh"
 done
 
 # once more, with feeling
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 # vim plugins go here
 mkdir -p $HOME/.vim/bundle

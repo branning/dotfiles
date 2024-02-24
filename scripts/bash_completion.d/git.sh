@@ -2,7 +2,7 @@
 #
 # Install git Bash completion
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 git_comment='install git bash completion'
 if ! grep -q "$git_comment" ~/.profile

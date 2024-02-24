@@ -2,7 +2,7 @@
 #
 # install using platform-specific package managers
 
-here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 quiet(){ "$@" >/dev/null 2>&1; }
 

@@ -23,7 +23,7 @@ if [[ "${BASH_SOURCE[0]}" != "${0}" ]]; then return 0; fi
 
 #become_root
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 trap "cd $here" EXIT
 
 workdir=$HOME/src/bash-completion

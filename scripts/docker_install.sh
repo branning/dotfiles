@@ -7,7 +7,7 @@ set -o errexit
 
 wsl_docker_comment='on Windows Subsystem for Linux Ubuntu, use Docker for Windows'
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 source "${here}/../library/is_wsl.sh" # provides is_wsl()
 
 if is_wsl && ! grep -q "$wsl_docker_comment" ~/.profile

@@ -7,6 +7,8 @@
 
 #set -o xtrace
 
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
+
 # ye olde toole shoppe
 library='
   info
@@ -15,12 +17,8 @@ library='
   '
 for tool in $library
 do
-  here=$(cd $(dirname ${BASH_SOURCE[0]}); echo $PWD)
-  source "${here}/library/${tool}.sh"
+  source "$here/library/$tool.sh"
 done
-
-# once more, with feeling
-here=$(cd $(dirname ${BASH_SOURCE[0]}); echo $PWD)
 
 error() {
   echo "$(basename ${BASH_SOURCE[0]}) error: $*" >&2

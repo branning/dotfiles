@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
-source "$here/quiet.sh"
+quiet() {
+    $*
+}
 
 reponame()
 {   # from a git url, extract default repo directory name

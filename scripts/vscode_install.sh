@@ -5,7 +5,7 @@
 set -o errexit
 set -o pipefail
 
-here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 error() {
   echo "$*" >&2

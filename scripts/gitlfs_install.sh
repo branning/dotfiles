@@ -2,7 +2,7 @@
 #
 # Install Git LFS (large file support) via magic
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 add_gitlfs_repo() {
   case $OSTYPE in

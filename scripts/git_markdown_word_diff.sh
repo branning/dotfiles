@@ -6,7 +6,7 @@
 #
 # Regardless, source control tooling also favors shorter lines for seeing differences. A long paragraph, like above, with a isingle difference, will always appear as if the entire line as changed, which can make spotting the difference a word hunt. Git supports different diff tools per filetype, and this script installs confguration to use `word-diff` for markdown (*.md) files.
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 case $1 in
   uninstall)

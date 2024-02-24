@@ -9,10 +9,10 @@ library='
   '
 for tool in $library
 do
-  here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+  here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
   source "${here}/../library/${tool}.sh"
 done
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 if ! command -v fzf >/dev/null 2>&1
 then

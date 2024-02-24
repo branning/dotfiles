@@ -3,7 +3,7 @@
 # Install ssh hostname Bash completion
 # from https://unix.stackexchange.com/a/181603/148498
 
-here=$(cd $(dirname $BASH_SOURCE[0]); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 ssh_comment='install ssh hostname completion'
 if ! grep -q "$ssh_comment" ~/.profile

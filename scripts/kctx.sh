@@ -6,7 +6,7 @@
 
 set -o errexit
 
-here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 # install fzf
 "$here/fzf_install.sh"

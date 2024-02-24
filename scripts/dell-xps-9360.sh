@@ -5,7 +5,7 @@
 set -o errexit
 set -o pipefail
 
-here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 is_dell_xps() {
   dmidecode -t 1 | grep -q 'XPS 13 9360'

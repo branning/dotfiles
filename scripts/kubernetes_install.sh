@@ -6,7 +6,7 @@
 
 set -o errexit
 
-here=$(cd $(dirname $BASH_SOURCE); pwd)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 if ! command -v kubectl >/dev/null 2>&1
 then

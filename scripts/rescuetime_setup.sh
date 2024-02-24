@@ -2,7 +2,7 @@
 #
 # setup and enable Rescuetime service
 
-here=$(cd $(dirname $BASH_SOURCE); echo $PWD)
+here=$(cd "$(dirname "${BASH_SOURCE[0]}")" || exit; echo "$PWD")
 
 is_lingering()
 {

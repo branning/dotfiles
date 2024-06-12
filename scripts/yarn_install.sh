@@ -1,24 +1,12 @@
 #!/usr/bin/env bash
 #
-# install yarn node package manager manager
-# instructions from https://yarnpkg.com/en/docs/install
+# install yarn node package manager manager using corepack
 
-case $OSTYPE in
-  darwin*)
-    brew install yarn
-    ;;
-  linux*)
-    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-    repo='https://dl.yarnpkg.com/debian/'
-    if ! grep "$repo" /etc/apt/sources.list.d/yarn.list
-    then
-      echo "deb ${repo} stable main" \
-        | sudo tee /etc/apt/sources.list.d/yarn.list
-    fi
-    sudo apt update && sudo apt install yarn -y
-    ;;
-  cygwin*|msys*|mingw32*)
-    scoop install yarn
-    ;;
-esac
+if ! command -v corepack 2>&1 >/dev/null; then
+    echo "Yarn installation requires Node.js with corepack. See https://yarnpkg.com/getting-started/install"
+    exit 1
+fi
+
+corepack enable
+yarn init -2 --yes
 

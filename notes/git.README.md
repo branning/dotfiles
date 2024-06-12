@@ -76,3 +76,11 @@ Upon doing that, you should no longer see any warnings or errors from `git fsck`
 > ✔ philip:novnc-new [ master ✭ | ● 173 ] ➭ git fsck
 > Checking object directories: 100% (256/256), done.
 > Checking objects: 100% (8847/8847), done.
+
+
+## Reset author of multiple commits
+
+Then to reset the author for all commits after the given BASE_SHA:
+
+    git rebase -i BASE_SHA -x "git commit --amend --author 'John Doe <johndoe@example.com>
+' -CHEAD"

@@ -64,7 +64,7 @@ export BASH_SILENCE_DEPRECATION_WARNING=1
 if [ "$(uname)" == "Darwin" ]; then
   ARCH=$(uname -m)
   case $ARCH in
-    aarch64) # ARCH="arm64" # Apple Silicon
+    aarch64|arm64) # ARCH="arm64" # Apple Silicon
       eval "$(/opt/homebrew/bin/brew shellenv)"
       ;;
     x86_64) # ARCH="amd64" # Intel

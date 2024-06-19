@@ -84,3 +84,10 @@ Then to reset the author for all commits after the given BASE_SHA:
 
     git rebase -i BASE_SHA -x "git commit --amend --author 'John Doe <johndoe@example.com>
 ' -CHEAD"
+
+## Co-author git commit
+
+Add the following line to the end of the commit message:
+
+    Co-authored-by: NAME <NAME@EXAMPLE.COM>
+    Co-authored-by: ANOTHER-NAME <ANOTHER-NAME@EXAMPLE.COM>

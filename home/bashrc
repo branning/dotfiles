@@ -3,6 +3,13 @@ if [ -f /Applications/Tailscale.app/Contents/MacOS/Tailscale ]; then
   alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 fi
 
+
+# Show recent files, skipping older files. Useful in ~/Downloads
+recent(){
+  local count=${1:-10}
+  ls -tlr | tail -n $count
+}
+
 # Open repo on remote host
 repo(){
   target=${1?" Must provide repository name to open on $DEVMACHINE in $DEVROOT"}

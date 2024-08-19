@@ -1,3 +1,8 @@
+# On MacOS, the tailscale cli is available, but not on the path
+if [ -f /Applications/Tailscale.app/Contents/MacOS/Tailscale ]; then
+  alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
+fi
+
 # Open repo on remote host
 repo(){
   target=${1?" Must provide repository name to open on $DEVMACHINE in $DEVROOT"}

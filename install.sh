@@ -246,6 +246,7 @@ install_toolchains()
   install_node
   install_go
   install_rust
+  install_python
 }
 
 install_node()
@@ -289,6 +290,12 @@ install_rust()
     info "Installing Rust"
     "$here/scripts/rust_install.sh"
   fi
+}
+
+install_python()
+{
+  info "Installing Python"
+  "$here/scripts/uv-install.sh"
 }
 
 install_tools()

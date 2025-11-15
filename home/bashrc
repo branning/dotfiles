@@ -3,12 +3,27 @@ if [ -f /Applications/Tailscale.app/Contents/MacOS/Tailscale ]; then
   alias tailscale='/Applications/Tailscale.app/Contents/MacOS/Tailscale'
 fi
 
-
 # Show recent files, skipping older files. Useful in ~/Downloads
 recent(){
   local count=${1:-10}
   ls -tlr | tail -n $count
 }
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+# LS_COLORS colorized file filters from http://github.com/trapd00r/LS_COLORS
+if [ -f $HOME/.dircolors ]
+then
+  eval $(gdircolors -b $HOME/.dircolors)
+fi
+
+# Install an informative git prompt for Bash
+if [ -f $HOME/.bash-git-prompt/gitprompt.sh ]
+then
+  GIT_PROMPT_ONLY_IN_REPO=1
+  GIT_PROMPT_THEME='Single_line_Solarized'
+  source $HOME/.bash-git-prompt/gitprompt.sh
+fi
 
 # Open repo on remote host
 repo(){

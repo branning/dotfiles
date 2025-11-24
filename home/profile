@@ -18,7 +18,7 @@ if [ -n "$BASH_VERSION" ]; then
 fi
 
 onpath() {
-  echo "$PATH | grep -q $1"
+  echo "$PATH" | grep -q $1
 }
 
 # set PATH so it includes user's private bin if it exists

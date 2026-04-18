@@ -1,6 +1,8 @@
 #!/bin/bash
 #
 
+set -euo pipefail
+
 case "$1" in
   uninstall|remove)
     #Uninstall LaunchDaemon org.nixos.nix-daemon
@@ -14,6 +16,17 @@ case "$1" in
     ;;
   test)
     nix-shell -p nix-info --run "nix-info -m"
+    ;;
+  flake)
+    config=~/.config/nix/nix.conf
+    flake_config='experimental-features = nix-command flakes'
+    if [[ -f $config ]] && grep -q "$flake_config" "$config"; then
+      echo "Flakes already enabled"
+      exit 0
+    fi
+    mkdir -p $(dirname "$config")
+    echo "$flake_config" >> "$config"
+    echo "Enabled flakes"
     ;;
   *|install)
     export NIX_FIRST_BUILD_UID=351

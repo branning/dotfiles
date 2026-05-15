@@ -4,15 +4,23 @@
 
 set -o errexit
 
-version='1.22.0'
+version='1.26.3'
 case $OSTYPE in
   darwin*) platform='darwin';;
   linux*)  platform='linux';;
   *)
-    echo >&2 "cannot install Golang for OS $OSTYPE}. See https://golang.org/doc/install"
+    echo >&2 "cannot install Golang for OS $OSTYPE}. See https://go.dev/dl/"
     ;;
 esac
-url_targz="https://storage.googleapis.com/golang/go${version}.${platform}-amd64.tar.gz"
+uname_arch=$(uname -m)
+case $uname_arch in
+  x86_64) arch=amd64;;
+  arm64)  arch=arm64;;
+  *)
+    echo >&2 "cannot install Golang for Arch $uname_arch}. See https://go.dev/dl/"
+    ;;
+esac
+url_targz="https://go.dev/dl/go${version}.${platform}-${arch}.tar.gz"
 
 SILENT=${SILENT:=1}
 ((!SILENT)) && set -o xtrace
